@@ -1,0 +1,21 @@
+{
+  "name": "schedule-notes-core",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Independent offline synthetic schedule and activity Web Core",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "generate": "node generator.cjs",
+    "build": "node scripts/build.cjs",
+    "test": "node --test --test-isolation=none tests/*.test.cjs",
+    "start": "node scripts/start.cjs",
+    "check": "python tools/check.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerozelda773-cmd/schedule-notes-core.git"
+  }
+}

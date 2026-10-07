@@ -1,0 +1,2 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+:root{font-family:system-ui,sans-serif;color:#182635;background:#edf2f7}main{max-width:800px;margin:40px auto;padding:28px;background:white;border-radius:12px}button{padding:10px 16px;margin:4px;border:1px solid #315c84;border-radius:6px;background:#e8f0fa;color:#182635;cursor:pointer}article{padding:12px;margin:8px 0;border:1px solid #ccd5df}h2{font-size:1.1rem}p{line-height:1.6}button:focus-visible{outline:3px solid #d87900}
