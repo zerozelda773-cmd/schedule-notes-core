@@ -129,7 +129,7 @@
     "generator.cjs": "b4e2fa06ba5698b3081619d333e764ae045716112af348e1cda9e08243ffcd33",
     "package-lock.json": "d3378c73e0db7292c7cb1d73060cd68b56d76c88b30f6bc1d5d2e11c09798dc8",
     "package.json": "37532e5c25b7e81256dd12176240f6b4bf9a5e281caa262f4fc480a53131830a",
-    "scripts/browser-test.cjs": "239b59c00dc2d747fdf614fa1e0b5ce9979728897e9925a9e59376077ee29f9f",
+    "scripts/browser-test.cjs": "08fe73ab44ffa68af91f2082af334e7e56b0a68268016346a24db4c9d97cb582",
     "scripts/build.cjs": "e6d48e1d9edd8d3ddac417d57d3b86d389db5786182f50d9256eb53d131043d4",
     "scripts/provenance.cjs": "e7286e62d575eb764b978df0830ce5dc23bd722df89f9e0e8f1cb79941be5c6d",
     "scripts/start.cjs": "cef606175e2df8fc55379cf159dec2824554dee2dcae6f745c9cad4a73c6529b",
