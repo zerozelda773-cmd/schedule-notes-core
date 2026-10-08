@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
 'use strict';
-const fs=require('node:fs'),path=require('node:path');const root=path.resolve(__dirname,'..');
-const entries={'demo/index.html':'index.html','demo/demo.js':'demo.js','demo/style.css':'style.css','core/core.js':'core/core.js','fixtures/synthetic.json':'fixtures/synthetic.json'};
-for(const [source,target] of Object.entries(entries)){const out=path.join(root,'dist',target);fs.mkdirSync(path.dirname(out),{recursive:true});fs.copyFileSync(path.join(root,source),out);}
-console.log('Built offline synthetic Web Core');
+const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'..'),manifest=JSON.parse(fs.readFileSync(path.join(root,'PUBLIC-MANIFEST.json'),'utf8'));
+for(const [destination,source] of Object.entries(manifest.buildFiles)){if(!manifest.files.includes(source)||destination.includes('..')||path.isAbsolute(destination))throw Error('Unapproved build path');const file=path.join(root,'dist',destination);fs.mkdirSync(path.dirname(file),{recursive:true});fs.copyFileSync(path.join(root,source),file);}
+console.log('Built public synthetic Core from registered manifest');

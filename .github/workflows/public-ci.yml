@@ -15,9 +15,17 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '24'
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm run generate
-      - run: npm run build
-      - run: npm test
-      - run: python3 tools/check.py
-      - run: git diff --exit-code
+      - name: Locked zero-dependency install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Deterministic synthetic generation
+        run: npm run generate
+      - name: Synthetic provenance and schema contract
+        run: npm run provenance
+      - name: Registered public build
+        run: npm run build
+      - name: Unit, contract and import reliability tests
+        run: npm test
+      - name: Secrets, public manifest, license and syntax
+        run: python3 tools/check.py
+      - name: Generated files remain clean
+        run: git diff --exit-code

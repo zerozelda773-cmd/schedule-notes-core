@@ -17,11 +17,13 @@ def fixture_errors(f):
     def walk(v):
         if isinstance(v,dict):
             for k,x in v.items():
-                if isinstance(x,str) and (k=='id' or k.endswith('Id')) and not re.fullmatch(r'(?:H|D|E|C|P|S|A|T|PLAN)_SYN_[A-Z0-9_]+',x):errors.append('synthetic_identity')
-                if k.endswith('Name') and isinstance(x,str) and not x.startswith('虚构'):errors.append('synthetic_name')
+                if isinstance(x,str) and (k=='id' or k.endswith('Id')) and not re.fullmatch(r'[A-Z][A-Z0-9]*_SYN_[A-Z0-9_]+',x):errors.append('synthetic_identity')
+                if (k.endswith('Name') or k=='name') and isinstance(x,str) and not x.startswith(('虚构','Synthetic ')):errors.append('synthetic_name')
                 walk(x)
         if isinstance(v,list):
-            for x in v:walk(x)
+            for x in v:
+                if isinstance(x,dict) and ('id' in x or 'entityType' in x) and x.get('synthetic') is not True:errors.append('synthetic_row_provenance')
+                walk(x)
     walk(f);return errors
 def main():
     errors=[];manifest=json.loads((ROOT/'PUBLIC-MANIFEST.json').read_text(encoding='utf-8'));allowed=set(manifest['files']);actual=set()
@@ -32,7 +34,7 @@ def main():
         if not p.is_file():continue
         data=p.read_bytes();errors.extend([name,rule] for rule in scan(data))
         if rel.parts[0]=='dist':
-            source={'index.html':'demo/index.html','demo.js':'demo/demo.js','style.css':'demo/style.css','core/core.js':'core/core.js','fixtures/synthetic.json':'fixtures/synthetic.json'}.get(name[5:])
+            source=manifest['buildFiles'].get(name[5:])
             if not source or data!=(ROOT/source).read_bytes():errors.append([name,'build_not_allowlisted'])
             continue
         actual.add(name)
@@ -43,7 +45,17 @@ def main():
     if pkg.get('dependencies') or pkg.get('devDependencies') or pkg['license']!='Apache-2.0':errors.append(['package.json','license_or_dependencies'])
     license_text=(ROOT/'LICENSE').read_text()
     if 'Apache License' not in license_text or 'Version 2.0, January 2004' not in license_text:errors.append(['LICENSE','missing_license'])
-    errors.extend(['fixtures/synthetic.json',x] for x in fixture_errors(json.loads((ROOT/'fixtures/synthetic.json').read_text(encoding='utf-8'))))
+
+    lock=json.loads((ROOT/'package-lock.json').read_text())
+    if set(lock['packages'])!={''} or lock['version']!=pkg['version']:errors.append(['package-lock.json','dependency_inventory'])
+    for file in ('fixtures/synthetic.json','fixtures/scenarios.json'):
+        errors.extend([file,x] for x in fixture_errors(json.loads((ROOT/file).read_text(encoding='utf-8'))))
+    for name in actual:
+        p=ROOT/name
+        if p.suffix in ('.js','.cjs','.py') and b'SPDX-License-Identifier: Apache-2.0' not in p.read_bytes()[:300]:errors.append([name,'missing_source_license'])
+    for destination,source in manifest['buildFiles'].items():
+        if source not in allowed or '..' in pathlib.PurePosixPath(destination).parts:errors.append([destination,'unapproved_build_source'])
+
     workflow=(ROOT/'.github/workflows/public-ci.yml').read_text()
     expected={'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1','actions/setup-node@820762786026740c76f36085b0efc47a31fe5020'}
     if set(re.findall(r'uses:\s*([^\s#]+)',workflow))!=expected or re.search(r'pull_request_target|workflow_run|secrets\.|:\s*write\b',workflow):errors.append(['CI','privileged_or_unapproved'])

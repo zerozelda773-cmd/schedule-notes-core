@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Schedule Notes Core · Synthetic Demo</title><link rel="stylesheet" href="style.css"></head>
-<body><main><h1>Schedule Notes Core</h1><p>Offline synthetic demonstration. All names, identities, relationships and amounts are fictional.</p>
-<nav aria-label="Activity state"><button id="active">Approve activity</button><button id="draft">New draft</button><button id="cancel">Cancel activity</button></nav>
-<p id="status" role="status"></p><section id="tasks" aria-label="Activity tasks"></section>
-<h2>Sales facts</h2><p id="facts"></p><button id="save">Save locally</button><p id="saved" role="status"></p>
-<p>Local browser storage only. Clear site storage to remove saved demonstration state.</p></main>
-<script src="core/core.js"></script><script src="demo.js"></script></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Schedule Notes Core · Data Truth</title><link rel="stylesheet" href="style.css"></head><body><main>
+<h1>Schedule Notes Core · Data Truth</h1><p>Original synthetic inputs only. No production access. The demo resets on reload.</p>
+<section><h2>1. Identity and output</h2><button id="exact">Exact ID</button><button id="probable">Name candidate</button><button id="ambiguous">Same name</button><pre id="identity" role="status"></pre>
+<label>Report period <select id="period"><option value="complete">Covered period</option><option value="missing">Missing amount</option><option value="gap">Observation gap</option></select></label><pre id="facts"></pre></section>
+<section><h2>2. Preview before commit</h2><label for="input">Synthetic SalesRecord JSON (no source field)</label><textarea id="input" rows="9" spellcheck="false"></textarea><button id="preview">Preview import</button><button id="commit" disabled>Commit preview</button><pre id="previewResult" role="status">No preview; nothing written</pre><p id="commitResult" role="status"></p></section>
+<section><h2>3. Activity lifecycle</h2><button id="active">Approve</button><button id="draft">New draft</button><button id="cancel">Cancel</button><button id="complete">Completed scenario</button><p id="status" role="status"></p><section id="tasks"></section></section>
+<p>Input changes invalidate the preview. PROBABLE or AMBIGUOUS names require an explicit stable ID. Unknown facts remain null; an observation gap prevents a complete conclusion.</p></main>
+<script src="core/contracts.js"></script><script src="core/period.js"></script><script src="core/identity.js"></script><script src="core/validation.js"></script><script src="core/analysis.js"></script><script src="core/task.js"></script><script src="adapters/storage/memory.js"></script><script src="adapters/import/importer.js"></script><script src="adapters/optional/interfaces.js"></script><script src="core/index.js"></script><script src="demo.js"></script></body></html>

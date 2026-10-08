@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 2,
+  "synthetic": true,
+  "provenance": "Original fixed scenario. No private inputs or fitted distributions.",
+  "records": [
+    {
+      "id": "S_SYN_MISSING_HOSPITAL",
+      "hospitalId": null,
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-01",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_UNKNOWN_PRODUCT",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_UNKNOWN",
+      "eventDate": "2030-10-01",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_INVALID_DATE",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-02-30",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_PERIOD_GAP",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-10",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_NULL",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-01",
+      "netQuantity": 10,
+      "amount": null,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_ZERO",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-01",
+      "netQuantity": 0,
+      "amount": 0,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_NEGATIVE",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-01",
+      "netQuantity": -3,
+      "amount": -9,
+      "kind": "return",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_DUPLICATE",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-01",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "S_SYN_DUPLICATE",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-01",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    }
+  ],
+  "matching": [
+    {
+      "synthetic": true,
+      "entityType": "Customer",
+      "query": {
+        "id": "C_SYN_001"
+      },
+      "expected": "EXACT"
+    },
+    {
+      "synthetic": true,
+      "entityType": "Employee",
+      "query": {
+        "name": "Synthetic Employee 1"
+      },
+      "expected": "PROBABLE"
+    },
+    {
+      "synthetic": true,
+      "entityType": "Customer",
+      "query": {
+        "name": "Synthetic Same Name"
+      },
+      "expected": "AMBIGUOUS"
+    },
+    {
+      "synthetic": true,
+      "entityType": "Customer",
+      "query": {
+        "id": "C_SYN_UNKNOWN"
+      },
+      "expected": "UNMATCHED"
+    },
+    {
+      "synthetic": true,
+      "entityType": "Department",
+      "query": {
+        "name": "Synthetic Shared Department",
+        "hospitalId": "H_SYN_002"
+      },
+      "expected": "PROBABLE"
+    }
+  ]
+}

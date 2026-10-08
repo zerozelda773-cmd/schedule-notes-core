@@ -1,6 +1,6 @@
 {
   "name": "schedule-notes-core",
-  "version": "0.1.0",
+  "version": "0.2.0-candidate.1",
   "private": true,
   "license": "Apache-2.0",
   "description": "Independent offline synthetic schedule and activity Web Core",
@@ -12,7 +12,10 @@
     "build": "node scripts/build.cjs",
     "test": "node --test --test-isolation=none tests/*.test.cjs",
     "start": "node scripts/start.cjs",
-    "check": "python tools/check.py"
+    "check": "python tools/check.py",
+    "provenance": "node scripts/provenance.cjs",
+    "test:contracts": "node --test --test-isolation=none tests/contracts.test.cjs",
+    "test:import": "node --test --test-isolation=none tests/import.test.cjs"
   },
   "repository": {
     "type": "git",

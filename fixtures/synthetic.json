@@ -1,72 +1,99 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "synthetic": true,
-  "generatorVersion": "1",
-  "seed": "fixed-original-scenario-v1",
-  "sourcePolicy": "Generated from zero; no private data input or fitted business values",
   "hospitals": [
     {
-      "hospitalId": "H_SYN_001",
-      "hospitalName": "虚构医院01",
+      "id": "H_SYN_001",
+      "name": "Synthetic Hospital 1",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
-      "hospitalId": "H_SYN_002",
-      "hospitalName": "虚构医院02",
+      "id": "H_SYN_002",
+      "name": "Synthetic Hospital 2",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
   "departments": [
     {
-      "departmentId": "D_SYN_001",
-      "departmentName": "虚构科室01",
+      "id": "D_SYN_001",
+      "name": "Synthetic Shared Department",
       "hospitalId": "H_SYN_001",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
-      "departmentId": "D_SYN_002",
-      "departmentName": "虚构科室02",
+      "id": "D_SYN_002",
+      "name": "Synthetic Shared Department",
       "hospitalId": "H_SYN_002",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
   "employees": [
     {
-      "employeeId": "E_SYN_001",
-      "employeeName": "虚构人员01",
+      "id": "E_SYN_001",
+      "name": "Synthetic Employee 1",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
-      "employeeId": "E_SYN_002",
-      "employeeName": "虚构人员02",
+      "id": "E_SYN_002",
+      "name": "Synthetic Employee 2",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
   "customers": [
     {
-      "customerId": "C_SYN_001",
-      "customerName": "虚构同名客户",
+      "id": "C_SYN_001",
+      "name": "Synthetic Same Name",
       "hospitalId": "H_SYN_001",
       "departmentId": "D_SYN_001",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
-      "customerId": "C_SYN_002",
-      "customerName": "虚构同名客户",
+      "id": "C_SYN_002",
+      "name": "Synthetic Same Name",
       "hospitalId": "H_SYN_002",
       "departmentId": "D_SYN_002",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
   "products": [
     {
-      "productId": "P_SYN_001",
-      "productName": "虚构产品01",
+      "id": "P_SYN_001",
+      "name": "Synthetic Product 1",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
-      "productId": "P_SYN_002",
-      "productName": "虚构产品02",
+      "id": "P_SYN_002",
+      "name": "Synthetic Product 2",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
@@ -76,9 +103,13 @@
       "hospitalId": "H_SYN_001",
       "employeeId": "E_SYN_001",
       "productId": "P_SYN_001",
-      "date": "2030-10-01",
-      "netBoxes": 7,
-      "salesAmount": 21,
+      "eventDate": "2030-10-01",
+      "netQuantity": 10,
+      "amount": 30,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
@@ -86,9 +117,13 @@
       "hospitalId": "H_SYN_002",
       "employeeId": "E_SYN_002",
       "productId": "P_SYN_002",
-      "date": "2030-10-02",
-      "netBoxes": 0,
-      "salesAmount": 0,
+      "eventDate": "2030-10-02",
+      "netQuantity": 0,
+      "amount": 0,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
@@ -96,20 +131,27 @@
       "hospitalId": "H_SYN_001",
       "employeeId": "E_SYN_001",
       "productId": "P_SYN_001",
-      "date": "2030-10-03",
-      "netBoxes": -2,
-      "salesAmount": -6,
+      "eventDate": "2030-10-03",
+      "netQuantity": -2,
+      "amount": -6,
+      "kind": "return",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
       "id": "S_SYN_004",
-      "hospitalId": null,
-      "employeeId": "E_SYN_002",
+      "hospitalId": "H_SYN_001",
+      "employeeId": "E_SYN_001",
       "productId": "P_SYN_001",
-      "date": "2030-10-04",
-      "netBoxes": 3,
-      "salesAmount": null,
-      "matchStatus": "UNMATCHED",
+      "eventDate": "2030-10-04",
+      "netQuantity": 3,
+      "amount": null,
+      "kind": "sale",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
@@ -119,9 +161,16 @@
       "employeeId": "E_SYN_001",
       "hospitalId": "H_SYN_001",
       "productId": "P_SYN_001",
-      "month": "2030-10",
-      "planVisits": 4,
-      "planActivities": 3,
+      "planPeriod": {
+        "kind": "plan",
+        "from": "2030-10-01",
+        "to": "2030-10-31"
+      },
+      "plannedVisits": 2,
+      "plannedActivities": 1,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
@@ -129,88 +178,140 @@
       "employeeId": "E_SYN_002",
       "hospitalId": "H_SYN_002",
       "productId": "P_SYN_002",
-      "month": "2030-10",
-      "planVisits": 4,
-      "planActivities": 3,
+      "planPeriod": {
+        "kind": "plan",
+        "from": "2030-10-01",
+        "to": "2030-10-31"
+      },
+      "plannedVisits": 2,
+      "plannedActivities": 1,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
   "activities": [
     {
       "id": "A_SYN_001",
-      "type": "合成演示活动",
-      "activityDate": "2030-10-05",
-      "endDate": "2030-10-05",
-      "startTime": "10:00",
-      "endTime": "11:00",
-      "approvalStatus": "已通过",
-      "status": "待执行",
+      "title": "Synthetic Approved",
+      "approval": "approved",
+      "status": "planned",
       "hospitalId": "H_SYN_001",
-      "hospitalName": "虚构医院01",
-      "departmentId": "D_SYN_001",
-      "departmentName": "虚构科室01",
-      "applicantId": "E_SYN_001",
-      "applicantName": "虚构人员01",
       "customerIds": [
         "C_SYN_001"
       ],
-      "productId": "P_SYN_001",
-      "expenseAmount": 13,
+      "eventDate": "2030-10-05",
+      "endDate": "2030-10-05",
+      "expenseAmount": 11,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
       "id": "A_SYN_002",
-      "type": "合成演示活动",
-      "activityDate": "2030-10-05",
-      "endDate": "2030-10-05",
-      "startTime": "10:00",
-      "endTime": "11:00",
-      "approvalStatus": "草稿",
-      "status": "待执行",
+      "title": "Synthetic Draft",
+      "approval": "draft",
+      "status": "planned",
       "hospitalId": "H_SYN_001",
-      "hospitalName": "虚构医院01",
-      "departmentId": "D_SYN_001",
-      "departmentName": "虚构科室01",
-      "applicantId": "E_SYN_001",
-      "applicantName": "虚构人员01",
       "customerIds": [
         "C_SYN_001"
       ],
-      "productId": "P_SYN_001",
-      "expenseAmount": 13,
+      "eventDate": "2030-10-05",
+      "endDate": "2030-10-05",
+      "expenseAmount": 11,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     },
     {
       "id": "A_SYN_003",
-      "type": "合成演示活动",
-      "activityDate": "2030-10-05",
-      "endDate": "2030-10-05",
-      "startTime": "10:00",
-      "endTime": "11:00",
-      "approvalStatus": "已取消",
-      "status": "待执行",
+      "title": "Synthetic Cancelled",
+      "approval": "cancelled",
+      "status": "cancelled",
       "hospitalId": "H_SYN_001",
-      "hospitalName": "虚构医院01",
-      "departmentId": "D_SYN_001",
-      "departmentName": "虚构科室01",
-      "applicantId": "E_SYN_001",
-      "applicantName": "虚构人员01",
       "customerIds": [
         "C_SYN_001"
       ],
-      "productId": "P_SYN_001",
-      "expenseAmount": 13,
+      "eventDate": "2030-10-05",
+      "endDate": "2030-10-05",
+      "expenseAmount": 11,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "A_SYN_004",
+      "title": "Synthetic Completed",
+      "approval": "approved",
+      "status": "completed",
+      "hospitalId": "H_SYN_001",
+      "customerIds": [
+        "C_SYN_001"
+      ],
+      "eventDate": "2030-10-05",
+      "endDate": "2030-10-05",
+      "expenseAmount": 11,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
   ],
-  "manualTasks": [
+  "tasks": [
     {
       "id": "T_SYN_001",
-      "title": "合成手动任务",
-      "sourceType": "manual",
+      "title": "Synthetic manual task",
+      "kind": "manual",
       "status": "pending",
       "dueDate": "2030-10-06",
+      "activityId": null,
+      "customerId": null,
+      "productId": null,
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
       "synthetic": true
     }
-  ]
+  ],
+  "visits": [
+    {
+      "id": "V_SYN_001",
+      "customerId": "C_SYN_001",
+      "employeeId": "E_SYN_001",
+      "productId": "P_SYN_001",
+      "eventDate": "2030-10-07",
+      "status": "completed",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    }
+  ],
+  "observationPeriods": [
+    {
+      "id": "OBS_SYN_001",
+      "kind": "observation",
+      "from": "2030-10-01",
+      "to": "2030-10-07",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "OBS_SYN_002",
+      "kind": "observation",
+      "from": "2030-10-15",
+      "to": "2030-10-31",
+      "source": {
+        "sourceId": "SRC_SYN_001"
+      },
+      "synthetic": true
+    }
+  ],
+  "importBatches": []
 }
