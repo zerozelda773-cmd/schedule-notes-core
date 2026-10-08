@@ -52,7 +52,7 @@ def main():
         errors.extend([file,x] for x in fixture_errors(json.loads((ROOT/file).read_text(encoding='utf-8'))))
     for name in actual:
         p=ROOT/name
-        if p.suffix in ('.js','.cjs','.py') and b'SPDX-License-Identifier: Apache-2.0' not in p.read_bytes()[:300]:errors.append([name,'missing_source_license'])
+        if (p.suffix in ('.js','.cjs','.mjs','.py') or name.endswith('.d.ts')) and b'SPDX-License-Identifier: Apache-2.0' not in p.read_bytes()[:300]:errors.append([name,'missing_source_license'])
     for destination,source in manifest['buildFiles'].items():
         if source not in allowed or '..' in pathlib.PurePosixPath(destination).parts:errors.append([destination,'unapproved_build_source'])
 
@@ -64,6 +64,9 @@ def main():
         if subprocess.run(['node','--check',str(p)],capture_output=True).returncode:errors.append([p.name,'syntax'])
     for p in ROOT.rglob('*.cjs'):
         if 'node_modules' in p.parts:continue
+        if subprocess.run(['node','--check',str(p)],capture_output=True).returncode:errors.append([p.name,'syntax'])
+    for p in ROOT.rglob('*.mjs'):
+        if 'dist' in p.parts or 'node_modules' in p.parts:continue
         if subprocess.run(['node','--check',str(p)],capture_output=True).returncode:errors.append([p.name,'syntax'])
     print(json.dumps({'files_checked':len(actual),'errors':errors}));return bool(errors)
 if __name__=='__main__':sys.exit(main())

@@ -1,9 +1,18 @@
 {
   "name": "schedule-notes-core",
-  "version": "0.3.0-candidate.1",
+  "version": "0.4.0-candidate.1",
   "private": true,
   "license": "Apache-2.0",
   "description": "Independent offline synthetic schedule and activity Web Core",
+  "main": "./core/index.js",
+  "module": "./index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {"types": "./types/index.d.ts", "import": "./index.mjs", "require": "./core/index.js"},
+    "./legacy": "./core/core.js",
+    "./adapter-test-suite": {"types": "./types/storage-conformance.d.ts", "import": "./storage-conformance.mjs", "require": "./adapters/storage/conformance.js"}
+  },
+  "files": ["index.mjs", "storage-conformance.mjs", "core/*.js", "adapters/**/*.js", "types/*.d.ts", "docs/*.md", "LICENSE", "NOTICE", "README.md", "THIRD-PARTY.md", "SECURITY.md"],
   "engines": {
     "node": ">=24"
   },
@@ -22,7 +31,10 @@
     "test:migration": "node --test --test-isolation=none tests/migration.test.cjs tests/snapshot-migration.test.cjs",
     "test:recovery": "node --test --test-isolation=none tests/recovery.test.cjs",
     "test:integration": "node --test --test-isolation=none tests/integration.test.cjs",
-    "test:browser": "node scripts/browser-test.cjs"
+    "test:browser": "node scripts/browser-test.cjs",
+    "test:phase4": "node --test --test-isolation=none tests/client.test.cjs tests/matching.test.cjs tests/storage-compatibility.test.cjs tests/phase4-recovery.test.cjs tests/phase4-compatibility.test.cjs tests/property.test.cjs tests/determinism.test.cjs tests/headless.test.cjs tests/package.test.cjs tests/security.test.cjs",
+    "benchmark": "node scripts/benchmark.cjs",
+    "security": "python tools/dangerous.py"
   },
   "repository": {
     "type": "git",

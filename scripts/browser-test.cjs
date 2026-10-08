@@ -7,7 +7,7 @@ function waitExit(child,ms){if(child.exitCode!==null)return Promise.resolve();re
 async function main(){
  if(!chrome)throw Error('A real Chrome/Chromium executable is required; no mocked browser substitute. Set CHROME_BIN.');
  const profile=fs.mkdtempSync(path.join(os.tmpdir(),'schedule-core-browser-')),results=[],versions=[];
- const server=http.createServer((req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(dist,'.'+(pathname==='/'?'/index.html':pathname));if(!file.startsWith(dist+path.sep)||!fs.statSync(file).isFile())throw Error('Not found');res.setHeader('Content-Type',({'.js':'text/javascript','.json':'application/json','.html':'text/html','.css':'text/css'})[path.extname(file)]||'text/plain');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end('Not found');}});
+ const server=http.createServer((req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(dist,'.'+(pathname==='/'?'/index.html':pathname));if(!file.startsWith(dist+path.sep)||!fs.statSync(file).isFile())throw Error('Not found');res.setHeader('Content-Type',({'.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.html':'text/html','.css':'text/css'})[path.extname(file)]||'text/plain');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end('Not found');}});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url='http://127.0.0.1:'+server.address().port;
  async function run(phase){
   console.error('[browser] '+phase);

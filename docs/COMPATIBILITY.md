@@ -1,6 +1,18 @@
-# Compatibility decision log
+# Compatibility matrix and decisions
 
-Baseline: v0.2.0, f0a2256f118b57ed77f95e050437036131dfa8d2. The tag remains frozen. This development tree contains additive Phase 3 work and an internal candidate marker, not a new release.
+Phase 4 reference: frozen v0.3.0, `31d6f4b7ef2101f8b377c0e02d6b05be22726f2a`. The original 21 Stable APIs retain exact static output oracles and seven-facet contracts; see [API-CONTRACT-BASELINE](API-CONTRACT-BASELINE.md). Sixteen supported storage/lifecycle/import contracts are promoted with a separate reviewed contract profile. Remaining Experimental and all Deprecated functions retain explicit registry decisions.
+
+| Runtime | Classification | Evidence and limits |
+|---|---|---|
+| Node 24.19.0 | SUPPORTED for tested headless/package contracts | Actual local Node suites, ESM consumer, deterministic/property and synthetic benchmarks. Other Node majors have not been verified. |
+| Chrome/Chromium 154 | SUPPORTED for tested browser contracts | Real IndexedDB, transaction abort, fresh profile, process restart and local synthetic browser checks. The browser executable is external and not version-locked by this package. Current candidate verification must record its exact version and result. |
+| Android WebView compatible runtime | BEST EFFORT, contract-only | Android adapter interface is defined; no real WebView/Android runtime or private Android implementation is supplied or tested. Runtime needs modern JavaScript, structuredClone, Web Crypto and compatible storage. |
+| Firefox / WebKit / Safari | UNSUPPORTED by the verified matrix; NOT TESTED | No second-engine runtime was available. No claim that every browser is compatible. |
+| Older Node / Chromium | UNSUPPORTED by the verified matrix; NOT TESTED | Supported minimums have not been inferred from syntax alone. |
+
+`SUPPORTED` refers only to the covered operations and recorded runs. It is not a guarantee against quota eviction, process/hardware failure or unknown host behavior. The compatibility matrix is separate from current CI status; a missing/unrun candidate CI cannot be called PASS.
+
+The earlier v0.2.0 behavioral boundary remains relevant:
 
 | Surface | Classification | Evidence |
 |---|---|---|
@@ -11,6 +23,8 @@ Baseline: v0.2.0, f0a2256f118b57ed77f95e050437036131dfa8d2. The tag remains froz
 | Persistent store, transactional Activity sync, migration, snapshot/recovery, multi-entity import | BACKWARD COMPATIBLE additions, EXPERIMENTAL | Separate new entry points; failure and integration tests; real IndexedDB/process restart verification. No existing call acquires guessed business facts. |
 | API version 1.0 metadata and registry | BACKWARD COMPATIBLE addition | Distinct from unchanged schemaVersion 2. |
 
-No BREAKING STABLE API change is authorized or intentionally introduced. New behavior is exposed through new experimental APIs. Internal module paths and global implementation namespaces are not supported caller contracts; the thin demo only uses the public facade and returned adapter interface.
+No breaking change to the original Stable API is authorized or intentionally introduced. Additional Phase 4 client, matching and backup/inspection profiles remain Experimental. Restore-preview inspection fields were added before its promotion and are now pinned by the Phase 4 profile. Internal module paths and global implementation namespaces are not supported caller contracts.
 
-The original 60-test baseline suite continues alongside separated Phase 3 unit, contract, storage, migration, import, recovery, integration and real browser checks. Passing tests establish the covered behavior and do not promise unlimited compatibility for unknown inputs or every future runtime.
+The original tests continue alongside Phase 3 and Phase 4 contract/storage/migration/import/recovery/integration, property, determinism, headless and real browser checks. Memory adapters can report EPHEMERAL compatibility; a persistent adapter needs real reopen and corruption evidence through the shared adapter suite before claiming RESTARTABLE compatibility. A report with NOT_APPLICABLE checks must retain those limits.
+
+The first historical browser failure remains UNKNOWN. A successful current run is NOT REPRODUCED with ROOT CAUSE UNKNOWN, not a proven fix.

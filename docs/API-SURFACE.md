@@ -1,22 +1,30 @@
-# Public API surface and lifecycle
+# Public API lifecycle
 
-Compatibility baseline: v0.2.0, `f0a2256f118b57ed77f95e050437036131dfa8d2`. The executable registry is exported as `api.apiRegistry` from `core/index.js`. Contract tests require an entry for every actual facade, optional adapter, store method and legacy export. Demo code may only use the facade and its returned store interface; implementation modules/global `ScheduleCoreV2` are INTERNAL.
+Frozen compatibility baseline: v0.3.0, 31d6f4b7ef2101f8b377c0e02d6b05be22726f2a. API version remains 1.0; schema remains 2. The executable apiRegistry lists supported facade, namespace, returned client/store methods and legacy boundaries. Internal module paths are not application entry points.
 
-| Status | Meaning |
-|---|---|
-| STABLE | Supported schema 2 input and return semantics are backward compatible with the documented v0.2.0 baseline. Additional documented metadata may be returned. |
-| EXPERIMENTAL | Additive Phase 3 interface; explicit migration notes and tests are required for future changes. |
-| DEPRECATED | Still callable, tested and documented with a replacement. |
-| INTERNAL | Implementation surface; applications must not couple to it. |
+Phase 3 had 21 STABLE and 24 EXPERIMENTAL entries. Phase 4 retains all original callables, promotes 16 documented interfaces and adds a bounded client/inspection surface. Current counts: **37 STABLE, 22 EXPERIMENTAL, 6 DEPRECATED**.
 
-STABLE: schemaVersion, apiVersion, emptyDataset, validatePeriod, calendarPeriod, resolveIdentity, validateRecord, validateDataset, summarizeSales, createTask, syncActivityTasks, importPreview, commitImport, createMemoryStore, optional and its aiProvider/excelReader/nativeStore/calendar validators; store.read/writeAtomic.
+## Disposition of every previous experimental entry
 
-EXPERIMENTAL: apiRegistry, migrationRegistry, createIndexedDBStore, exportSnapshot, validateSnapshot, restorePreview, restoreSnapshot, migrationPreview, commitMigration, multiImportPreview, commitMultiImport, syncActivityTasksAtomic; store.get/put/delete/list/transaction/snapshot/restore/recoveryStatus/exportRecovery/recover/metadata/close.
+PROMOTE TO STABLE:
 
-DEPRECATED: migrateDataset → migrationPreview + commitMigration. Original manual/no-change response semantics remain. Legacy exports from core/core.js remain: validDate → validatePeriod, activityTasks → syncActivityTasksAtomic, visitTask → createTask, salesSummary → summarizeSales, createStore → createIndexedDBStore. The replacements need their explicit new contracts, not a blind signature substitution.
+- exportSnapshot, validateSnapshot, restorePreview, restoreSnapshot
+- multiImportPreview, commitMultiImport, syncActivityTasksAtomic
+- store.get, put, delete, list, transaction, snapshot, restore, metadata, close
 
-Lifecycle: ACTIVE → DEPRECATED → REMOVED IN FUTURE MAJOR. No stable member is removed silently. Deprecation records name, status, replacement and earliest removal boundary (not before API major 2.0). Deprecated calls remain covered by regression tests. API version 1.0 is independent of schema 2; a migration does not force API/schema version changes together. The 0.x package line is developing, but undocumented semantic breakage remains prohibited.
+Supported semantics are covered by conformance, snapshot/atomic-import regression and real browser tests. Snapshot timestamps are explicit inputs to deterministic hashes; the legacy default timestamp remains a live clock for compatibility.
 
-Changes from v0.2.0: additive experimental persistence/migration/backup/import APIs; backward-compatible expansion of the memory store to the common interface for supported schema 2 data; documented deprecation of the manual migration and separately retained v0.1 legacy helpers. Identity, period, schema, validation, single-entity import and output semantics retain their original regression tests.
+KEEP EXPERIMENTAL:
 
-See [Storage](STORAGE.md), [Migration](MIGRATION.md), [Snapshot](SNAPSHOT.md), [Recovery](RECOVERY.md), [Import](IMPORT-PHASE3.md), [Testing](TESTING.md). No provider implementation or production access is implied.
+- apiRegistry, migrationRegistry: registry layouts are development metadata
+- createIndexedDBStore: native-runtime setup and capabilities remain environment dependent
+- migrationPreview, commitMigration: narrow known mappings; no guessed migration
+- store.recoveryStatus, exportRecovery, recover: explicit damaged-state workflows
+
+New EXPERIMENTAL entries: createClient; client.command/query/why/onDiagnostic; matching and normalize/score/createAliasRegistry/candidates; inspectSnapshot, exportBackup; store.inspectRecovery; adapterTestSuite.runStorageCompatibilitySuite. Matching only suggests candidates; it does not modify resolveIdentity or turn probable matches into exact. Alias registries are owned by stable IDs/hospital scopes, external to schema 2 rows.
+
+Original STABLE input/output/error/null/identity/period/persistence semantics retain frozen executable cases and seven-facet records in [API Contract Baseline](API-CONTRACT-BASELINE.md). No Stable API is removed or implicitly rebound to the new client.
+
+DEPRECATED callables remain: migrateDataset and legacy.validDate/activityTasks/visitTask/salesSummary/createStore. Their original semantics remain tested; replacements require explicit new contracts, not blind substitution. Removal is not before API major 2.0. Deprecated raw legacy deserialization remains a caller validation boundary.
+
+Future output changes must be detected by contract tests and reviewed with compatibility notes. The 0.x package line does not authorize undocumented breakage. Named commands/queries return structured errors, rather than requiring raw string parsing or internal object access.

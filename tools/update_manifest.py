@@ -13,5 +13,7 @@ if args.normalize_lf:
 m['version']=json.loads((ROOT/'package.json').read_text(encoding='utf-8'))['version'];m['files']=sorted(allowed);m['sha256']={rel:hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() for rel in sorted(allowed) if rel!='PUBLIC-MANIFEST.json'}
 m['buildFiles']={'index.html':'demo/index.html','demo.js':'demo/demo.js','style.css':'demo/style.css','fixtures/synthetic.json':'fixtures/synthetic.json','fixtures/legacy-schema1.json':'fixtures/legacy-schema1.json'}
 m['buildFiles'].update({rel:rel for rel in sorted(allowed) if rel.endswith('.js') and rel.startswith(('core/','adapters/'))})
+for entry in ('index.mjs','storage-conformance.mjs'):
+ if entry in allowed:m['buildFiles'][entry]=entry
 path.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
 print(json.dumps({'explicit_public_files':len(allowed)}))

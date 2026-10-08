@@ -39,11 +39,21 @@ jobs:
         run: npm run test:recovery
       - name: Atomic Activity and end to end integration
         run: npm run test:integration
+      - name: Frozen API, adapter conformance, property, determinism, headless and package consumer
+        run: npm run test:phase4
+      - name: Lightweight declaration syntax, no semantic type compiler implied
+        run: |
+          node --experimental-strip-types --check types/index.d.ts
+          node --experimental-strip-types --check types/storage-conformance.d.ts
       - name: Real browser persistence, crash, restart and recovery
         run: npm run test:browser
       - name: Minimal public API example
         run: node examples/reliability.cjs
       - name: Secrets, public manifest, license and syntax
         run: python3 tools/check.py
+      - name: Dangerous API sinks
+        run: python3 tools/dangerous.py
+      - name: Synthetic performance trend, correctness first
+        run: npm run benchmark
       - name: Generated files remain clean
         run: git diff --exit-code

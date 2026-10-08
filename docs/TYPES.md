@@ -1,0 +1,11 @@
+# Developer types
+
+`types/index.d.ts` describes the package ESM default/named exports, 11 entity/fact shapes, IDs, periods, null-aware output envelopes, storage, preview/commit imports, migration, backup/restore, recovery inspection, unified errors, command/query client, diagnostics and matching/aliases. `types/storage-conformance.d.ts` describes the Node adapter test-suite subpath.
+
+Declarations add no build dependency. They use `unknown` only at validation/adapter boundaries where runtime input is deliberately not trusted; the complete API is not generalized to `any`. Entity IDs are strings because these declarations cannot prove provenance or correct namespace. Runtime validation still enforces stable-ID format, reference existence and hospital scope. Type assertions never replace that validation.
+
+Command and query payloads/results are mapped by operation name. Existing scalar/data APIs keep their documented schema 2 behavior. Caller code should consume the package entry, the returned client or adapter, and public result envelopes rather than internal module paths.
+
+`AndroidAdapter` is an interface for storage, file, back, lifecycle and share/export capabilities. This public package contains no Android runtime. `AIContext`, `AIRequest`, `AISuggestion` and `AIAdapter` describe optional suggestion-only integration. Suggestions require caller/human/rule validation before a Core command; an AI adapter cannot write facts directly.
+
+The declarations are a developer contract, not a new runtime validator. Their compatibility is checked against actual public member names and consumer tests. Node 24's native TypeScript parser verifies declaration syntax without installing a compiler. That syntax pass is distinct from TypeScript semantic type checking. A compiler run should be recorded separately when an already-installed compiler is available; no dependency is downloaded solely for this document.

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 'use strict';
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');const root=path.resolve(__dirname,'..','dist');
-const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json'};
+const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json'};
 const server=http.createServer((req,res)=>{let relative;try{relative=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}catch{res.writeHead(400).end();return;}
   const file=path.resolve(root,'.'+(relative==='/'?'/index.html':relative));
   if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}

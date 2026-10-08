@@ -1,22 +1,25 @@
 # Storage contract
 
-`createMemoryStore(dataset)` and `createIndexedDBStore({name, seed})` implement the same asynchronous interface. The facade in `core/index.js` is the application entry point. Core transaction, migration and import logic accepts this interface and never accesses a browser database.
+`createMemoryStore(dataset)` and `createIndexedDBStore({name, seed})` implement the same asynchronous command interface. The facade is the application entry point; Core logic never depends on a browser database layout.
 
 | Method | Contract |
 |---|---|
-| `read()` / `get(type, id)` / `list(type)` | Detached data; unknown ID returns null. |
-| `writeAtomic(dataset, {expectedRevision})` | Full validation and compare-and-swap. Existing `COMMITTED` / `STALE_PREVIEW` behavior retained. |
-| `put(type, row)` / `delete(type, id)` | Explicit mutation in a whole-dataset transaction. Dangling references reject the entire write. |
-| `transaction(async draft => result)` | Mutate a detached draft. Throws, invalid data or a competing revision preserve the original. No automatic retry of callbacks with side effects. |
-| `snapshot(options)` / `restore(snapshot)` | Validated, checksummed export; migration preview before restore. |
-| `metadata()` | schemaVersion, createdAt, updatedAt, synthetic source provenance, content revision and envelope checksum. |
-| `recoveryStatus()` / `exportRecovery()` / `recover(snapshot, {expectedChecksum})` | Explicit recovery contract; see [Recovery](RECOVERY.md). |
-| `close()` | Close the database connection. |
+| read / get / list | Detached data; unknown ID returns null. |
+| writeAtomic(dataset, {expectedRevision}) | Full validation and compare-and-swap; COMMITTED or STALE_PREVIEW retain the established meaning. |
+| put / delete | Explicit whole-dataset mutation. Duplicate-ID put replaces that row, not a second row. Dangling references reject the write. |
+| transaction(async draft => result) | Detached draft, full validation and atomic commit. Thrown callbacks, invalid data or revision conflict preserve the original. No automatic callback retries. |
+| snapshot / restore | Validated full snapshot; restore requires preview, sealed revision and atomic commit. |
+| metadata | Schema, timestamps, synthetic source declaration, content revision and envelope checksum. |
+| recoveryStatus / exportRecovery / recover | Explicit recovery; damaged state is never silently cleared. |
+| inspectRecovery | Experimental read-only recoverability assessment; it never writes a salvage subset. |
+| close | Releases the backend connection. Memory has no persistent connection or restart guarantee. |
 
-Storage envelope version 1 is separate from data schema 2 and API version 1.0. IndexedDB database version 1 describes only the storage layout. Neither increments the fact schema. All persistent state is one record in one native read/write transaction. Validation and Web Crypto run before that transaction; a synchronous get/compare/put prevents IndexedDB auto-commit during an asynchronous hash. The result is reported only after native transaction completion. Concurrent tabs can conflict; callers must obtain a new preview rather than silently overwrite.
+Storage envelope version 1, data schema 2, API version 1.0 and IndexedDB layout version 1 have separate roles. All persistent state is one native transaction. Validation and Web Crypto run before the transaction; synchronous get/compare/put inside the transaction avoids auto-commit across an asynchronous hash. A recovery operation also compares the original canonical raw state within this transaction. The result is reported after commit completion.
 
-Seed is used only when no persistent head exists. It never repairs or resets an existing invalid head. Corrupt state enters read-only recovery. Credentials, deployment configuration and recognized production credential/endpoint content are refused. Supported candidate datasets declare synthetic provenance; a declaration is not proof of origin. Never put private inputs in the public demo.
+Concurrent callers receive a stale result and must obtain a fresh preview. Unknown amounts and identities are never changed for storage convenience. Transactions preserve stable IDs and explicit period roles. Credentials, deployment configuration and recognized production content are refused. Synthetic declarations are required by this public candidate, but a declaration alone cannot prove origin.
 
-Memory store is ephemeral. IndexedDB survives tested browser process restarts, but browser quota failure, eviction, user deletion, private browsing, device loss and storage hardware failure remain possible. This is a local single-dataset adapter, not a server, multi-device database or encrypted vault. Regular external backups are required for durable use.
+Seed applies only to absent state. Corrupt state enters read-only recovery. Memory is ephemeral. IndexedDB survives the tested browser restarts; quota, eviction, user deletion, private browsing, device loss and hardware failures still exist. This is local single-dataset storage, not a server, encrypted vault or cloud backup.
 
-`syncActivityTasksAtomic(activity, store)` writes the Activity and its generated tasks together. `COMPLETE` means the transaction committed. `FAILED` means no confirmed write; taskCount is null. `PARTIAL` is reserved for future non-atomic adapters and is never returned by these atomic adapters. Completed/cancelled task status is preserved by the frozen task engine.
+`syncActivityTasksAtomic` commits Activity and generated tasks together. COMPLETE means commit; FAILED means no confirmed write and taskCount is null. PARTIAL is reserved for future non-atomic adapters and is not returned by the current atomic adapters.
+
+See [Adapter compatibility](ADAPTERS.md), [Snapshot](SNAPSHOT.md) and [Recovery](RECOVERY.md) for capability declarations and future SQLite/Android requirements.

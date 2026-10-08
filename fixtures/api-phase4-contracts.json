@@ -1,0 +1,2797 @@
+{
+  "synthetic": true,
+  "profile": "Phase 4 promoted supported inputs",
+  "priorRelease": "v0.3.0",
+  "priorReleaseSHA": "31d6f4b7ef2101f8b377c0e02d6b05be22726f2a",
+  "policy": "Initial reviewed promotion output oracle; no automatic baseline update. Original 21-API v0.3.0 oracle stays separate and frozen.",
+  "dynamicFields": "store.metadata timestamps validated as ISO and checksum as 64 hex before replacing tokens; undefined is explicitly encoded.",
+  "contracts": {
+    "exportSnapshot": {
+      "semantics": {
+        "input": "Validated schema 2 synthetic Dataset; optional exact generatedAt.",
+        "output": "Frozen six-field snapshot with provenance and SHA-256 checksum.",
+        "error": "Invalid input/timestamp rejects with StateError status.",
+        "null": "Unknown amounts retained.",
+        "identity": "Preserves stable IDs.",
+        "period": "Preserves roles and dates.",
+        "persistence": "Read-only export; no upload or write."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: exportSnapshot",
+      "expected": {
+        "schemaVersion": 2,
+        "apiVersion": "1.0",
+        "records": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_001",
+              "name": "Synthetic Hospital 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "H_SYN_002",
+              "name": "Synthetic Hospital 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "departments": [
+            {
+              "id": "D_SYN_001",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "D_SYN_002",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employees": [
+            {
+              "id": "E_SYN_001",
+              "name": "Synthetic Employee 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "E_SYN_002",
+              "name": "Synthetic Employee 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "customers": [
+            {
+              "id": "C_SYN_001",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_001",
+              "departmentId": "D_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "C_SYN_002",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_002",
+              "departmentId": "D_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "products": [
+            {
+              "id": "P_SYN_001",
+              "name": "Synthetic Product 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "P_SYN_002",
+              "name": "Synthetic Product 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "sales": [
+            {
+              "id": "S_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-01",
+              "netQuantity": 10,
+              "amount": 30,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "employeeId": "E_SYN_002",
+              "productId": "P_SYN_002",
+              "eventDate": "2030-10-02",
+              "netQuantity": 0,
+              "amount": 0,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_003",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-03",
+              "netQuantity": -2,
+              "amount": -6,
+              "kind": "return",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_004",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-04",
+              "netQuantity": 3,
+              "amount": null,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employeePlans": [
+            {
+              "id": "PLAN_SYN_001",
+              "employeeId": "E_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "productId": "P_SYN_001",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "PLAN_SYN_002",
+              "employeeId": "E_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "productId": "P_SYN_002",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "activities": [
+            {
+              "id": "A_SYN_001",
+              "title": "Synthetic Approved",
+              "approval": "approved",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_002",
+              "title": "Synthetic Draft",
+              "approval": "draft",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_003",
+              "title": "Synthetic Cancelled",
+              "approval": "cancelled",
+              "status": "cancelled",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_004",
+              "title": "Synthetic Completed",
+              "approval": "approved",
+              "status": "completed",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T_SYN_001",
+              "title": "Synthetic manual task",
+              "kind": "manual",
+              "status": "pending",
+              "dueDate": "2030-10-06",
+              "activityId": null,
+              "customerId": null,
+              "productId": null,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "visits": [
+            {
+              "id": "V_SYN_001",
+              "customerId": "C_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-07",
+              "status": "completed",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "observationPeriods": [
+            {
+              "id": "OBS_SYN_001",
+              "kind": "observation",
+              "from": "2030-10-01",
+              "to": "2030-10-07",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "OBS_SYN_002",
+              "kind": "observation",
+              "from": "2030-10-15",
+              "to": "2030-10-31",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "importBatches": []
+        },
+        "provenance": {
+          "synthetic": true,
+          "sourceIds": [
+            "SRC_SYN_001"
+          ]
+        },
+        "generatedAt": "2030-01-01T00:00:00.000Z",
+        "checksum": "24012da5ec603c2d6411c3ccf087c6e86855af242afed1334e1b0415c0faba58"
+      }
+    },
+    "validateSnapshot": {
+      "semantics": {
+        "input": "Snapshot or explicitly supported legacy snapshot.",
+        "output": "Exact status/valid/issues envelope.",
+        "error": "Checksum/schema/provenance mismatch returns INVALID.",
+        "null": "Null input invalid; nullable facts preserved.",
+        "identity": "Validates original record references.",
+        "period": "Validates original periods.",
+        "persistence": "Read-only validation."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: validateSnapshot",
+      "expected": {
+        "valid": {
+          "status": "VALID",
+          "valid": true,
+          "issues": []
+        },
+        "invalid": {
+          "status": "INVALID",
+          "valid": false,
+          "issues": [
+            {
+              "code": "CHECKSUM_MISMATCH"
+            }
+          ]
+        }
+      }
+    },
+    "restorePreview": {
+      "semantics": {
+        "input": "Validated snapshot and compatible store.",
+        "output": "READY plan or BLOCKED details with counts/schema/integrity/conflicts and binding hash.",
+        "error": "Invalid or unsupported snapshots blocked; no write.",
+        "null": "Snapshot fact nulls retained; absent inspection schema null.",
+        "identity": "Shows overwrite/removal conflicts, no guessed merge.",
+        "period": "Explicit migration only; source periods preserved.",
+        "persistence": "Read-only plan bound to store revision; commit is separate."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: restorePreview",
+      "expected": {
+        "status": "READY",
+        "recordCount": 24,
+        "collections": {
+          "hospitals": 2,
+          "departments": 2,
+          "employees": 2,
+          "customers": 2,
+          "products": 2,
+          "sales": 4,
+          "employeePlans": 2,
+          "activities": 4,
+          "tasks": 1,
+          "visits": 1,
+          "observationPeriods": 2
+        },
+        "schema": 2,
+        "migrationRequired": false,
+        "conflicts": [],
+        "unsupported": [],
+        "integrityStatus": "PASS",
+        "issues": [],
+        "baseRevision": "53617cc34399cc6120c29e7afef1d8f706ac4593cae3f146b7970223f750222c",
+        "snapshot": {
+          "schemaVersion": 2,
+          "apiVersion": "1.0",
+          "records": {
+            "schemaVersion": 2,
+            "synthetic": true,
+            "hospitals": [
+              {
+                "id": "H_SYN_001",
+                "name": "Synthetic Hospital 1",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "H_SYN_002",
+                "name": "Synthetic Hospital 2",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "departments": [
+              {
+                "id": "D_SYN_001",
+                "name": "Synthetic Shared Department",
+                "hospitalId": "H_SYN_001",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "D_SYN_002",
+                "name": "Synthetic Shared Department",
+                "hospitalId": "H_SYN_002",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "employees": [
+              {
+                "id": "E_SYN_001",
+                "name": "Synthetic Employee 1",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "E_SYN_002",
+                "name": "Synthetic Employee 2",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "customers": [
+              {
+                "id": "C_SYN_001",
+                "name": "Synthetic Same Name",
+                "hospitalId": "H_SYN_001",
+                "departmentId": "D_SYN_001",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "C_SYN_002",
+                "name": "Synthetic Same Name",
+                "hospitalId": "H_SYN_002",
+                "departmentId": "D_SYN_002",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "products": [
+              {
+                "id": "P_SYN_001",
+                "name": "Synthetic Product 1",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "P_SYN_002",
+                "name": "Synthetic Product 2",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "sales": [
+              {
+                "id": "S_SYN_001",
+                "hospitalId": "H_SYN_001",
+                "employeeId": "E_SYN_001",
+                "productId": "P_SYN_001",
+                "eventDate": "2030-10-01",
+                "netQuantity": 10,
+                "amount": 30,
+                "kind": "sale",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "S_SYN_002",
+                "hospitalId": "H_SYN_002",
+                "employeeId": "E_SYN_002",
+                "productId": "P_SYN_002",
+                "eventDate": "2030-10-02",
+                "netQuantity": 0,
+                "amount": 0,
+                "kind": "sale",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "S_SYN_003",
+                "hospitalId": "H_SYN_001",
+                "employeeId": "E_SYN_001",
+                "productId": "P_SYN_001",
+                "eventDate": "2030-10-03",
+                "netQuantity": -2,
+                "amount": -6,
+                "kind": "return",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "S_SYN_004",
+                "hospitalId": "H_SYN_001",
+                "employeeId": "E_SYN_001",
+                "productId": "P_SYN_001",
+                "eventDate": "2030-10-04",
+                "netQuantity": 3,
+                "amount": null,
+                "kind": "sale",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "employeePlans": [
+              {
+                "id": "PLAN_SYN_001",
+                "employeeId": "E_SYN_001",
+                "hospitalId": "H_SYN_001",
+                "productId": "P_SYN_001",
+                "planPeriod": {
+                  "kind": "plan",
+                  "from": "2030-10-01",
+                  "to": "2030-10-31"
+                },
+                "plannedVisits": 2,
+                "plannedActivities": 1,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "PLAN_SYN_002",
+                "employeeId": "E_SYN_002",
+                "hospitalId": "H_SYN_002",
+                "productId": "P_SYN_002",
+                "planPeriod": {
+                  "kind": "plan",
+                  "from": "2030-10-01",
+                  "to": "2030-10-31"
+                },
+                "plannedVisits": 2,
+                "plannedActivities": 1,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "activities": [
+              {
+                "id": "A_SYN_001",
+                "title": "Synthetic Approved",
+                "approval": "approved",
+                "status": "planned",
+                "hospitalId": "H_SYN_001",
+                "customerIds": [
+                  "C_SYN_001"
+                ],
+                "eventDate": "2030-10-05",
+                "endDate": "2030-10-05",
+                "expenseAmount": 11,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "A_SYN_002",
+                "title": "Synthetic Draft",
+                "approval": "draft",
+                "status": "planned",
+                "hospitalId": "H_SYN_001",
+                "customerIds": [
+                  "C_SYN_001"
+                ],
+                "eventDate": "2030-10-05",
+                "endDate": "2030-10-05",
+                "expenseAmount": 11,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "A_SYN_003",
+                "title": "Synthetic Cancelled",
+                "approval": "cancelled",
+                "status": "cancelled",
+                "hospitalId": "H_SYN_001",
+                "customerIds": [
+                  "C_SYN_001"
+                ],
+                "eventDate": "2030-10-05",
+                "endDate": "2030-10-05",
+                "expenseAmount": 11,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "A_SYN_004",
+                "title": "Synthetic Completed",
+                "approval": "approved",
+                "status": "completed",
+                "hospitalId": "H_SYN_001",
+                "customerIds": [
+                  "C_SYN_001"
+                ],
+                "eventDate": "2030-10-05",
+                "endDate": "2030-10-05",
+                "expenseAmount": 11,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "tasks": [
+              {
+                "id": "T_SYN_001",
+                "title": "Synthetic manual task",
+                "kind": "manual",
+                "status": "pending",
+                "dueDate": "2030-10-06",
+                "activityId": null,
+                "customerId": null,
+                "productId": null,
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "visits": [
+              {
+                "id": "V_SYN_001",
+                "customerId": "C_SYN_001",
+                "employeeId": "E_SYN_001",
+                "productId": "P_SYN_001",
+                "eventDate": "2030-10-07",
+                "status": "completed",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "observationPeriods": [
+              {
+                "id": "OBS_SYN_001",
+                "kind": "observation",
+                "from": "2030-10-01",
+                "to": "2030-10-07",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              },
+              {
+                "id": "OBS_SYN_002",
+                "kind": "observation",
+                "from": "2030-10-15",
+                "to": "2030-10-31",
+                "source": {
+                  "sourceId": "SRC_SYN_001"
+                },
+                "synthetic": true
+              }
+            ],
+            "importBatches": []
+          },
+          "provenance": {
+            "synthetic": true,
+            "sourceIds": [
+              "SRC_SYN_001"
+            ]
+          },
+          "generatedAt": "2030-01-01T00:00:00.000Z",
+          "checksum": "24012da5ec603c2d6411c3ccf087c6e86855af242afed1334e1b0415c0faba58"
+        },
+        "migration": {
+          "fromVersion": 2,
+          "toVersion": 2,
+          "counts": {
+            "read": 24,
+            "changed": 0,
+            "skipped": 24,
+            "rejected": 0
+          },
+          "warnings": []
+        },
+        "planHash": "c3b63272b4c1ade204e1df8ecf68d3c3bc3918011e409437ed2f08bd4534f87d"
+      }
+    },
+    "restoreSnapshot": {
+      "semantics": {
+        "input": "Untampered READY preview and same compatible store.",
+        "output": "COMMITTED/revision or explicit refusal status.",
+        "error": "Blocked/tampered/stale plans refused.",
+        "null": "Restores exact null facts.",
+        "identity": "Restores explicit source IDs; no name matching.",
+        "period": "Restores validated exact periods.",
+        "persistence": "Atomic compare-and-swap write; no partial restore."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: restoreSnapshot",
+      "expected": {
+        "committed": {
+          "status": "COMMITTED",
+          "revision": "431fa7d87dabc8aa2d8ba480a48ae3966e82d358b68cef9b432d17c28c19e3c3"
+        },
+        "stale": {
+          "status": "STALE_PREVIEW"
+        },
+        "blocked": {
+          "status": "PREVIEW_NOT_READY"
+        },
+        "readback": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_001",
+              "name": "Synthetic Hospital 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "H_SYN_002",
+              "name": "Synthetic Hospital 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "departments": [
+            {
+              "id": "D_SYN_001",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "D_SYN_002",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employees": [
+            {
+              "id": "E_SYN_001",
+              "name": "Synthetic Employee 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "E_SYN_002",
+              "name": "Synthetic Employee 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "customers": [
+            {
+              "id": "C_SYN_001",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_001",
+              "departmentId": "D_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "C_SYN_002",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_002",
+              "departmentId": "D_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "products": [
+            {
+              "id": "P_SYN_001",
+              "name": "Synthetic Product 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "P_SYN_002",
+              "name": "Synthetic Product 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "sales": [
+            {
+              "id": "S_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-01",
+              "netQuantity": 10,
+              "amount": 30,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "employeeId": "E_SYN_002",
+              "productId": "P_SYN_002",
+              "eventDate": "2030-10-02",
+              "netQuantity": 0,
+              "amount": 0,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_003",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-03",
+              "netQuantity": -2,
+              "amount": -6,
+              "kind": "return",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_004",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-04",
+              "netQuantity": 3,
+              "amount": null,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employeePlans": [
+            {
+              "id": "PLAN_SYN_001",
+              "employeeId": "E_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "productId": "P_SYN_001",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "PLAN_SYN_002",
+              "employeeId": "E_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "productId": "P_SYN_002",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "activities": [
+            {
+              "id": "A_SYN_001",
+              "title": "Synthetic Approved",
+              "approval": "approved",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_002",
+              "title": "Synthetic Draft",
+              "approval": "draft",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_003",
+              "title": "Synthetic Cancelled",
+              "approval": "cancelled",
+              "status": "cancelled",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_004",
+              "title": "Synthetic Completed",
+              "approval": "approved",
+              "status": "completed",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T_SYN_001",
+              "title": "Synthetic manual task",
+              "kind": "manual",
+              "status": "pending",
+              "dueDate": "2030-10-06",
+              "activityId": null,
+              "customerId": null,
+              "productId": null,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "visits": [
+            {
+              "id": "V_SYN_001",
+              "customerId": "C_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-07",
+              "status": "completed",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "observationPeriods": [
+            {
+              "id": "OBS_SYN_001",
+              "kind": "observation",
+              "from": "2030-10-01",
+              "to": "2030-10-07",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "OBS_SYN_002",
+              "kind": "observation",
+              "from": "2030-10-15",
+              "to": "2030-10-31",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "importBatches": []
+        }
+      }
+    },
+    "multiImportPreview": {
+      "semantics": {
+        "input": "Explicit CSV/JSON synthetic files, dataset, source/batch IDs, update fingerprints.",
+        "output": "Immutable row outcomes/counts/actions/provenance and binding hash.",
+        "error": "Malformed/conflicting/rejected rows BLOCKED.",
+        "null": "Null numeric values remain unknown.",
+        "identity": "Dependency ordering validates exact IDs and hospital scopes.",
+        "period": "Every date/plan period validated.",
+        "persistence": "Read-only projected dataset, no partial write."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: multiImportPreview",
+      "expected": {
+        "status": "READY",
+        "baseRevision": "53617cc34399cc6120c29e7afef1d8f706ac4593cae3f146b7970223f750222c",
+        "sourceId": "SRC_SYN_PROMOTED",
+        "batchId": "BATCH_SYN_PROMOTED",
+        "fingerprint": "8e52d0e0ae306df4b63fc6d4b0e97386b1268089e92d03fbb69066ff4f94a6bd",
+        "fileFingerprints": [
+          "be9126b0f4211514eecb54fb4646cf73aada0ae241f059bf22c14c38b6634cb3"
+        ],
+        "results": [
+          {
+            "entityType": "Hospital",
+            "fileIndex": 0,
+            "fileName": "Synthetic promoted.json",
+            "fileFingerprint": "be9126b0f4211514eecb54fb4646cf73aada0ae241f059bf22c14c38b6634cb3",
+            "rowIndex": 1,
+            "rowFingerprint": "3eb66abb934e8208c81dbc37d08ac7982d5a921c4196222b3b56906efb724397",
+            "outcome": "CREATE",
+            "matchingQuality": "EXACT",
+            "reason": null
+          }
+        ],
+        "actions": [
+          {
+            "entityType": "Hospital",
+            "outcome": "CREATE",
+            "row": {
+              "id": "H_SYN_PROMOTED",
+              "name": "Synthetic Promoted Hospital",
+              "synthetic": true,
+              "source": {
+                "sourceId": "SRC_SYN_PROMOTED",
+                "batchId": "BATCH_SYN_PROMOTED",
+                "fingerprint": "be9126b0f4211514eecb54fb4646cf73aada0ae241f059bf22c14c38b6634cb3",
+                "rowIndex": 1
+              }
+            }
+          }
+        ],
+        "counts": {
+          "CREATE": 1,
+          "UPDATE": 0,
+          "UNCHANGED": 0,
+          "DUPLICATE": 0,
+          "CONFLICT": 0,
+          "REJECT": 0
+        },
+        "issues": [],
+        "nextDataset": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_PROMOTED",
+              "name": "Synthetic Promoted Hospital",
+              "synthetic": true,
+              "source": {
+                "sourceId": "SRC_SYN_PROMOTED",
+                "batchId": "BATCH_SYN_PROMOTED",
+                "fingerprint": "be9126b0f4211514eecb54fb4646cf73aada0ae241f059bf22c14c38b6634cb3",
+                "rowIndex": 1
+              }
+            }
+          ],
+          "departments": [],
+          "employees": [],
+          "customers": [],
+          "products": [],
+          "sales": [],
+          "employeePlans": [],
+          "activities": [],
+          "tasks": [],
+          "visits": [],
+          "observationPeriods": [],
+          "importBatches": [
+            {
+              "sourceId": "SRC_SYN_PROMOTED",
+              "batchId": "BATCH_SYN_PROMOTED",
+              "fingerprint": "8e52d0e0ae306df4b63fc6d4b0e97386b1268089e92d03fbb69066ff4f94a6bd",
+              "counts": {
+                "CREATE": 1,
+                "UPDATE": 0,
+                "UNCHANGED": 0,
+                "DUPLICATE": 0,
+                "CONFLICT": 0,
+                "REJECT": 0
+              },
+              "synthetic": true
+            }
+          ]
+        },
+        "planHash": "210e77db3388be50dbba8505cf8f3e8d354965a783ad7fc4491e418d950c8d6b"
+      }
+    },
+    "commitMultiImport": {
+      "semantics": {
+        "input": "Untampered READY or REPEATED_IMPORT preview and store.",
+        "output": "Commit status/revision/counts; repeated is NO_CHANGE.",
+        "error": "Blocked/stale/tampered refused.",
+        "null": "Nullable facts retained.",
+        "identity": "Stable IDs preserved; no implicit merge.",
+        "period": "Only validated periods stored.",
+        "persistence": "Atomic compare-and-swap commits all files together."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: commitMultiImport",
+      "expected": {
+        "committed": {
+          "status": "COMMITTED",
+          "revision": "4ff1d162946e8d8b28bec258138d2e03701748c84c85113d718da5b35f8ae38c",
+          "counts": {
+            "CREATE": 1,
+            "UPDATE": 0,
+            "UNCHANGED": 0,
+            "DUPLICATE": 0,
+            "CONFLICT": 0,
+            "REJECT": 0
+          }
+        },
+        "stale": {
+          "status": "STALE_PREVIEW",
+          "counts": {
+            "CREATE": 1,
+            "UPDATE": 0,
+            "UNCHANGED": 0,
+            "DUPLICATE": 0,
+            "CONFLICT": 0,
+            "REJECT": 0
+          }
+        },
+        "blocked": {
+          "status": "PREVIEW_NOT_READY"
+        },
+        "readback": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_PROMOTED",
+              "name": "Synthetic Promoted Hospital",
+              "synthetic": true,
+              "source": {
+                "sourceId": "SRC_SYN_PROMOTED",
+                "batchId": "BATCH_SYN_PROMOTED",
+                "fingerprint": "be9126b0f4211514eecb54fb4646cf73aada0ae241f059bf22c14c38b6634cb3",
+                "rowIndex": 1
+              }
+            }
+          ],
+          "departments": [],
+          "employees": [],
+          "customers": [],
+          "products": [],
+          "sales": [],
+          "employeePlans": [],
+          "activities": [],
+          "tasks": [],
+          "visits": [],
+          "observationPeriods": [],
+          "importBatches": [
+            {
+              "sourceId": "SRC_SYN_PROMOTED",
+              "batchId": "BATCH_SYN_PROMOTED",
+              "fingerprint": "8e52d0e0ae306df4b63fc6d4b0e97386b1268089e92d03fbb69066ff4f94a6bd",
+              "counts": {
+                "CREATE": 1,
+                "UPDATE": 0,
+                "UNCHANGED": 0,
+                "DUPLICATE": 0,
+                "CONFLICT": 0,
+                "REJECT": 0
+              },
+              "synthetic": true
+            }
+          ]
+        }
+      }
+    },
+    "syncActivityTasksAtomic": {
+      "semantics": {
+        "input": "Validated Activity and transactional store.",
+        "output": "status/commitStatus/taskCount/issues.",
+        "error": "Failed validation/transaction yields FAILED with no partial tasks.",
+        "null": "Failed taskCount null; unlinked task refs null.",
+        "identity": "Stable derived Activity task IDs.",
+        "period": "Validated event dates determine tasks.",
+        "persistence": "Activity+Task changes commit as one transaction."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: syncActivityTasksAtomic",
+      "expected": {
+        "status": "COMPLETE",
+        "commitStatus": "COMMITTED",
+        "taskCount": 4,
+        "issues": []
+      }
+    },
+    "store.get": {
+      "semantics": {
+        "input": "Known entity type and stable ID.",
+        "output": "Detached record or null.",
+        "error": "Unknown type rejects; corrupted storage rejects.",
+        "null": "Missing record is null.",
+        "identity": "Exact ID lookup only.",
+        "period": "N/A: retains record dates without interpreting them.",
+        "persistence": "Read-only detached lookup."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.get",
+      "expected": {
+        "existing": {
+          "id": "T_SYN_001",
+          "title": "Synthetic manual task",
+          "kind": "manual",
+          "status": "pending",
+          "dueDate": "2030-10-06",
+          "activityId": null,
+          "customerId": null,
+          "productId": null,
+          "source": {
+            "sourceId": "SRC_SYN_001"
+          },
+          "synthetic": true
+        },
+        "missing": null
+      }
+    },
+    "store.put": {
+      "semantics": {
+        "input": "Known entity type and complete validated fact.",
+        "output": "Transaction write result including status/revision/result.",
+        "error": "Invalid dataset or stale transaction does not commit.",
+        "null": "Nullable record fields preserved.",
+        "identity": "Same ID updates rather than duplicates.",
+        "period": "All resulting records validated.",
+        "persistence": "Atomic upsert."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.put",
+      "expected": {
+        "committed": {
+          "status": "COMMITTED",
+          "revision": "e6713da3636b2cb2525e9ceb729b63e233cfef7a82ccb23461777b89efd1d116",
+          "result": {
+            "$type": "undefined"
+          }
+        },
+        "readback": {
+          "id": "T_SYN_PROMOTED",
+          "title": "Synthetic Promoted Task",
+          "kind": "manual",
+          "status": "pending",
+          "dueDate": "2030-10-06",
+          "activityId": null,
+          "customerId": null,
+          "productId": null,
+          "source": {
+            "sourceId": "SRC_SYN_001"
+          },
+          "synthetic": true
+        }
+      }
+    },
+    "store.delete": {
+      "semantics": {
+        "input": "Known entity type and stable ID.",
+        "output": "Transaction result; resulting get is null.",
+        "error": "Referenced identity deletion rejected by full dataset validation.",
+        "null": "Missing target is a no-fact-change transaction.",
+        "identity": "Deletes explicit ID only.",
+        "period": "N/A: no new period generated.",
+        "persistence": "Atomic deletion; no cascade guessed."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.delete",
+      "expected": {
+        "committed": {
+          "status": "COMMITTED",
+          "revision": "431fa7d87dabc8aa2d8ba480a48ae3966e82d358b68cef9b432d17c28c19e3c3",
+          "result": {
+            "$type": "undefined"
+          }
+        },
+        "readback": null
+      }
+    },
+    "store.list": {
+      "semantics": {
+        "input": "Known entity type.",
+        "output": "Detached array in stored order.",
+        "error": "Unknown type/storage corruption rejects.",
+        "null": "Empty array, not null.",
+        "identity": "IDs and record order retained.",
+        "period": "N/A: no period filtering.",
+        "persistence": "Read-only; returned rows cannot mutate store."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.list",
+      "expected": {
+        "tasks": [
+          {
+            "id": "T_SYN_001",
+            "title": "Synthetic manual task",
+            "kind": "manual",
+            "status": "pending",
+            "dueDate": "2030-10-06",
+            "activityId": null,
+            "customerId": null,
+            "productId": null,
+            "source": {
+              "sourceId": "SRC_SYN_001"
+            },
+            "synthetic": true
+          }
+        ]
+      }
+    },
+    "store.transaction": {
+      "semantics": {
+        "input": "Draft mutator plus optional expected revision.",
+        "output": "Commit status/revision plus mutator result.",
+        "error": "Thrown/invalid/stale transaction refuses whole write.",
+        "null": "Nullable facts retained; result may be undefined.",
+        "identity": "Post-mutation stable-reference validation.",
+        "period": "Post-mutation date/role validation.",
+        "persistence": "Validated atomic compare-and-swap with rollback on any failure."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.transaction",
+      "expected": {
+        "committed": {
+          "status": "COMMITTED",
+          "revision": "bc7847e8a70fdf2bcdfa02205fe26780b26902d653bc85ccccea9fc975b0b05a",
+          "result": {
+            "updated": 1
+          }
+        },
+        "invalid": {
+          "status": "INVALID_TRANSACTION"
+        },
+        "rolledBack": {
+          "status": "TRANSACTION_FAILED",
+          "issues": []
+        },
+        "readback": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_001",
+              "name": "Synthetic Hospital 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "H_SYN_002",
+              "name": "Synthetic Hospital 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "departments": [
+            {
+              "id": "D_SYN_001",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "D_SYN_002",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employees": [
+            {
+              "id": "E_SYN_001",
+              "name": "Synthetic Employee 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "E_SYN_002",
+              "name": "Synthetic Employee 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "customers": [
+            {
+              "id": "C_SYN_001",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_001",
+              "departmentId": "D_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "C_SYN_002",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_002",
+              "departmentId": "D_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "products": [
+            {
+              "id": "P_SYN_001",
+              "name": "Synthetic Product 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "P_SYN_002",
+              "name": "Synthetic Product 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "sales": [
+            {
+              "id": "S_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-01",
+              "netQuantity": 10,
+              "amount": 30,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "employeeId": "E_SYN_002",
+              "productId": "P_SYN_002",
+              "eventDate": "2030-10-02",
+              "netQuantity": 0,
+              "amount": 0,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_003",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-03",
+              "netQuantity": -2,
+              "amount": -6,
+              "kind": "return",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_004",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-04",
+              "netQuantity": 3,
+              "amount": null,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employeePlans": [
+            {
+              "id": "PLAN_SYN_001",
+              "employeeId": "E_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "productId": "P_SYN_001",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "PLAN_SYN_002",
+              "employeeId": "E_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "productId": "P_SYN_002",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "activities": [
+            {
+              "id": "A_SYN_001",
+              "title": "Synthetic Approved",
+              "approval": "approved",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_002",
+              "title": "Synthetic Draft",
+              "approval": "draft",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_003",
+              "title": "Synthetic Cancelled",
+              "approval": "cancelled",
+              "status": "cancelled",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_004",
+              "title": "Synthetic Completed",
+              "approval": "approved",
+              "status": "completed",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T_SYN_001",
+              "title": "Synthetic Transaction",
+              "kind": "manual",
+              "status": "pending",
+              "dueDate": "2030-10-06",
+              "activityId": null,
+              "customerId": null,
+              "productId": null,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "visits": [
+            {
+              "id": "V_SYN_001",
+              "customerId": "C_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-07",
+              "status": "completed",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "observationPeriods": [
+            {
+              "id": "OBS_SYN_001",
+              "kind": "observation",
+              "from": "2030-10-01",
+              "to": "2030-10-07",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "OBS_SYN_002",
+              "kind": "observation",
+              "from": "2030-10-15",
+              "to": "2030-10-31",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "importBatches": []
+        },
+        "before": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_001",
+              "name": "Synthetic Hospital 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "H_SYN_002",
+              "name": "Synthetic Hospital 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "departments": [
+            {
+              "id": "D_SYN_001",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "D_SYN_002",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employees": [
+            {
+              "id": "E_SYN_001",
+              "name": "Synthetic Employee 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "E_SYN_002",
+              "name": "Synthetic Employee 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "customers": [
+            {
+              "id": "C_SYN_001",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_001",
+              "departmentId": "D_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "C_SYN_002",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_002",
+              "departmentId": "D_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "products": [
+            {
+              "id": "P_SYN_001",
+              "name": "Synthetic Product 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "P_SYN_002",
+              "name": "Synthetic Product 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "sales": [
+            {
+              "id": "S_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-01",
+              "netQuantity": 10,
+              "amount": 30,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "employeeId": "E_SYN_002",
+              "productId": "P_SYN_002",
+              "eventDate": "2030-10-02",
+              "netQuantity": 0,
+              "amount": 0,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_003",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-03",
+              "netQuantity": -2,
+              "amount": -6,
+              "kind": "return",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_004",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-04",
+              "netQuantity": 3,
+              "amount": null,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employeePlans": [
+            {
+              "id": "PLAN_SYN_001",
+              "employeeId": "E_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "productId": "P_SYN_001",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "PLAN_SYN_002",
+              "employeeId": "E_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "productId": "P_SYN_002",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "activities": [
+            {
+              "id": "A_SYN_001",
+              "title": "Synthetic Approved",
+              "approval": "approved",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_002",
+              "title": "Synthetic Draft",
+              "approval": "draft",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_003",
+              "title": "Synthetic Cancelled",
+              "approval": "cancelled",
+              "status": "cancelled",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_004",
+              "title": "Synthetic Completed",
+              "approval": "approved",
+              "status": "completed",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T_SYN_001",
+              "title": "Synthetic manual task",
+              "kind": "manual",
+              "status": "pending",
+              "dueDate": "2030-10-06",
+              "activityId": null,
+              "customerId": null,
+              "productId": null,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "visits": [
+            {
+              "id": "V_SYN_001",
+              "customerId": "C_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-07",
+              "status": "completed",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "observationPeriods": [
+            {
+              "id": "OBS_SYN_001",
+              "kind": "observation",
+              "from": "2030-10-01",
+              "to": "2030-10-07",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "OBS_SYN_002",
+              "kind": "observation",
+              "from": "2030-10-15",
+              "to": "2030-10-31",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "importBatches": []
+        }
+      }
+    },
+    "store.snapshot": {
+      "semantics": {
+        "input": "Optional explicit generatedAt.",
+        "output": "Exact supported snapshot format.",
+        "error": "Corrupt/unreadable storage rejects.",
+        "null": "Stored unknown facts retained.",
+        "identity": "Stable IDs retained.",
+        "period": "Stored roles retained.",
+        "persistence": "Read-only export; no implicit upload."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.snapshot",
+      "expected": {
+        "schemaVersion": 2,
+        "apiVersion": "1.0",
+        "records": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_001",
+              "name": "Synthetic Hospital 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "H_SYN_002",
+              "name": "Synthetic Hospital 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "departments": [
+            {
+              "id": "D_SYN_001",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "D_SYN_002",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employees": [
+            {
+              "id": "E_SYN_001",
+              "name": "Synthetic Employee 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "E_SYN_002",
+              "name": "Synthetic Employee 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "customers": [
+            {
+              "id": "C_SYN_001",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_001",
+              "departmentId": "D_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "C_SYN_002",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_002",
+              "departmentId": "D_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "products": [
+            {
+              "id": "P_SYN_001",
+              "name": "Synthetic Product 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "P_SYN_002",
+              "name": "Synthetic Product 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "sales": [
+            {
+              "id": "S_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-01",
+              "netQuantity": 10,
+              "amount": 30,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "employeeId": "E_SYN_002",
+              "productId": "P_SYN_002",
+              "eventDate": "2030-10-02",
+              "netQuantity": 0,
+              "amount": 0,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_003",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-03",
+              "netQuantity": -2,
+              "amount": -6,
+              "kind": "return",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_004",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-04",
+              "netQuantity": 3,
+              "amount": null,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employeePlans": [
+            {
+              "id": "PLAN_SYN_001",
+              "employeeId": "E_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "productId": "P_SYN_001",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "PLAN_SYN_002",
+              "employeeId": "E_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "productId": "P_SYN_002",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "activities": [
+            {
+              "id": "A_SYN_001",
+              "title": "Synthetic Approved",
+              "approval": "approved",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_002",
+              "title": "Synthetic Draft",
+              "approval": "draft",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_003",
+              "title": "Synthetic Cancelled",
+              "approval": "cancelled",
+              "status": "cancelled",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_004",
+              "title": "Synthetic Completed",
+              "approval": "approved",
+              "status": "completed",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T_SYN_001",
+              "title": "Synthetic Transaction",
+              "kind": "manual",
+              "status": "pending",
+              "dueDate": "2030-10-06",
+              "activityId": null,
+              "customerId": null,
+              "productId": null,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "visits": [
+            {
+              "id": "V_SYN_001",
+              "customerId": "C_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-07",
+              "status": "completed",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "observationPeriods": [
+            {
+              "id": "OBS_SYN_001",
+              "kind": "observation",
+              "from": "2030-10-01",
+              "to": "2030-10-07",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "OBS_SYN_002",
+              "kind": "observation",
+              "from": "2030-10-15",
+              "to": "2030-10-31",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "importBatches": []
+        },
+        "provenance": {
+          "synthetic": true,
+          "sourceIds": [
+            "SRC_SYN_001"
+          ]
+        },
+        "generatedAt": "2030-01-01T00:00:00.000Z",
+        "checksum": "1a17c97345e9c4627866639d6e898cc8b08fcbbd3e8a16f8c81bc0002507ef11"
+      }
+    },
+    "store.restore": {
+      "semantics": {
+        "input": "Validated snapshot.",
+        "output": "Explicit write status/revision.",
+        "error": "Invalid/stale restoration refused.",
+        "null": "Stored nullable facts restored.",
+        "identity": "Source IDs restored; no inferred merge.",
+        "period": "Validated source periods restored.",
+        "persistence": "Compatibility wrapper performs preview+atomic commit; new clients should expose restorePreview to humans first."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.restore",
+      "expected": {
+        "committed": {
+          "status": "COMMITTED",
+          "revision": "431fa7d87dabc8aa2d8ba480a48ae3966e82d358b68cef9b432d17c28c19e3c3"
+        },
+        "readback": {
+          "schemaVersion": 2,
+          "synthetic": true,
+          "hospitals": [
+            {
+              "id": "H_SYN_001",
+              "name": "Synthetic Hospital 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "H_SYN_002",
+              "name": "Synthetic Hospital 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "departments": [
+            {
+              "id": "D_SYN_001",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "D_SYN_002",
+              "name": "Synthetic Shared Department",
+              "hospitalId": "H_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employees": [
+            {
+              "id": "E_SYN_001",
+              "name": "Synthetic Employee 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "E_SYN_002",
+              "name": "Synthetic Employee 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "customers": [
+            {
+              "id": "C_SYN_001",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_001",
+              "departmentId": "D_SYN_001",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "C_SYN_002",
+              "name": "Synthetic Same Name",
+              "hospitalId": "H_SYN_002",
+              "departmentId": "D_SYN_002",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "products": [
+            {
+              "id": "P_SYN_001",
+              "name": "Synthetic Product 1",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "P_SYN_002",
+              "name": "Synthetic Product 2",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "sales": [
+            {
+              "id": "S_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-01",
+              "netQuantity": 10,
+              "amount": 30,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "employeeId": "E_SYN_002",
+              "productId": "P_SYN_002",
+              "eventDate": "2030-10-02",
+              "netQuantity": 0,
+              "amount": 0,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_003",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-03",
+              "netQuantity": -2,
+              "amount": -6,
+              "kind": "return",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "S_SYN_004",
+              "hospitalId": "H_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-04",
+              "netQuantity": 3,
+              "amount": null,
+              "kind": "sale",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "employeePlans": [
+            {
+              "id": "PLAN_SYN_001",
+              "employeeId": "E_SYN_001",
+              "hospitalId": "H_SYN_001",
+              "productId": "P_SYN_001",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "PLAN_SYN_002",
+              "employeeId": "E_SYN_002",
+              "hospitalId": "H_SYN_002",
+              "productId": "P_SYN_002",
+              "planPeriod": {
+                "kind": "plan",
+                "from": "2030-10-01",
+                "to": "2030-10-31"
+              },
+              "plannedVisits": 2,
+              "plannedActivities": 1,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "activities": [
+            {
+              "id": "A_SYN_001",
+              "title": "Synthetic Approved",
+              "approval": "approved",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_002",
+              "title": "Synthetic Draft",
+              "approval": "draft",
+              "status": "planned",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_003",
+              "title": "Synthetic Cancelled",
+              "approval": "cancelled",
+              "status": "cancelled",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "A_SYN_004",
+              "title": "Synthetic Completed",
+              "approval": "approved",
+              "status": "completed",
+              "hospitalId": "H_SYN_001",
+              "customerIds": [
+                "C_SYN_001"
+              ],
+              "eventDate": "2030-10-05",
+              "endDate": "2030-10-05",
+              "expenseAmount": 11,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "tasks": [
+            {
+              "id": "T_SYN_001",
+              "title": "Synthetic manual task",
+              "kind": "manual",
+              "status": "pending",
+              "dueDate": "2030-10-06",
+              "activityId": null,
+              "customerId": null,
+              "productId": null,
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "visits": [
+            {
+              "id": "V_SYN_001",
+              "customerId": "C_SYN_001",
+              "employeeId": "E_SYN_001",
+              "productId": "P_SYN_001",
+              "eventDate": "2030-10-07",
+              "status": "completed",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "observationPeriods": [
+            {
+              "id": "OBS_SYN_001",
+              "kind": "observation",
+              "from": "2030-10-01",
+              "to": "2030-10-07",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            },
+            {
+              "id": "OBS_SYN_002",
+              "kind": "observation",
+              "from": "2030-10-15",
+              "to": "2030-10-31",
+              "source": {
+                "sourceId": "SRC_SYN_001"
+              },
+              "synthetic": true
+            }
+          ],
+          "importBatches": []
+        }
+      }
+    },
+    "store.metadata": {
+      "semantics": {
+        "input": "No arguments.",
+        "output": "Exact storageVersion/schemaVersion/timestamps/source/revision/checksum metadata.",
+        "error": "Corrupt/unreadable storage rejects.",
+        "null": "N/A: healthy metadata is non-null.",
+        "identity": "Dataset revision binds identities; no identities exposed.",
+        "period": "N/A: storage timestamps do not replace fact periods.",
+        "persistence": "Read-only envelope metadata; checksum detects integrity, not authenticity."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.metadata",
+      "expected": {
+        "storageVersion": 1,
+        "schemaVersion": 2,
+        "createdAt": "<valid runtime timestamp>",
+        "updatedAt": "<valid runtime timestamp>",
+        "source": {
+          "synthetic": true
+        },
+        "revision": "431fa7d87dabc8aa2d8ba480a48ae3966e82d358b68cef9b432d17c28c19e3c3",
+        "checksum": "<64 hex storage-envelope checksum>"
+      }
+    },
+    "store.close": {
+      "semantics": {
+        "input": "No arguments.",
+        "output": "Resolved undefined, explicitly encoded in contract oracle.",
+        "error": "Adapter close errors may reject.",
+        "null": "N/A: no fact output.",
+        "identity": "N/A: no identity operation.",
+        "period": "N/A: no period operation.",
+        "persistence": "Releases adapter resources; no fact write."
+      },
+      "test": "tests/phase4-compatibility.test.cjs :: promoted supported contract: store.close",
+      "expected": {
+        "value": {
+          "$type": "undefined"
+        }
+      }
+    }
+  }
+}
