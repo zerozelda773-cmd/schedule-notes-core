@@ -1,0 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),api=require('../core/index.js'),u=require('../core/state.js'),{schema1}=require('../fixtures/synthetic/reliability.cjs');
+test('schema 1 snapshot restoration must validate and preview a migration before commit',async()=>{const source=schema1(),snapshot={schemaVersion:1,apiVersion:'1.0',records:source,provenance:{synthetic:true,sourceIds:[]},generatedAt:'2030-01-01T00:00:00.000Z'};snapshot.checksum=await u.hash(snapshot);const store=api.createMemoryStore(api.emptyDataset()),plan=await api.restorePreview(snapshot,store);assert.equal(plan.status,'READY');assert.equal(plan.migration.fromVersion,1);assert.equal(plan.snapshot.schemaVersion,2);assert.equal((await api.restoreSnapshot(plan,store)).status,'COMMITTED');assert.equal((await store.read()).sales[3].amount,null);});

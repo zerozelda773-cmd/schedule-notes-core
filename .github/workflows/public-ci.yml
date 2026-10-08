@@ -8,6 +8,8 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-24.04
+    env:
+      PYTHON: python3
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -23,8 +25,24 @@ jobs:
         run: npm run provenance
       - name: Registered public build
         run: npm run build
-      - name: Unit, contract and import reliability tests
-        run: npm test
+      - name: Unit tests
+        run: npm run test:unit
+      - name: API, schema, identity, period and output contracts
+        run: npm run test:contract
+      - name: Storage transactions
+        run: npm run test:storage
+      - name: Old schema migration and snapshot migration
+        run: npm run test:migration
+      - name: Single and multi entity import
+        run: npm run test:import
+      - name: Snapshot roundtrip and recovery
+        run: npm run test:recovery
+      - name: Atomic Activity and end to end integration
+        run: npm run test:integration
+      - name: Real browser persistence, crash, restart and recovery
+        run: npm run test:browser
+      - name: Minimal public API example
+        run: node examples/reliability.cjs
       - name: Secrets, public manifest, license and syntax
         run: python3 tools/check.py
       - name: Generated files remain clean

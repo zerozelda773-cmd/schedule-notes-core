@@ -48,7 +48,7 @@ def main():
 
     lock=json.loads((ROOT/'package-lock.json').read_text())
     if set(lock['packages'])!={''} or lock['version']!=pkg['version']:errors.append(['package-lock.json','dependency_inventory'])
-    for file in ('fixtures/synthetic.json','fixtures/scenarios.json'):
+    for file in ('fixtures/synthetic.json','fixtures/scenarios.json','fixtures/legacy-schema1.json'):
         errors.extend([file,x] for x in fixture_errors(json.loads((ROOT/file).read_text(encoding='utf-8'))))
     for name in actual:
         p=ROOT/name

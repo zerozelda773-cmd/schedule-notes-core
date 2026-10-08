@@ -49,3 +49,4 @@ function scenarios(){
 }
 if(require.main===module){const out=path.join(__dirname,'fixtures');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'synthetic.json'),JSON.stringify(generate(),null,2)+'\n');fs.writeFileSync(path.join(out,'scenarios.json'),JSON.stringify(scenarios(),null,2)+'\n');console.log('Synthetic schema 2 dataset and boundary scenarios generated from zero');}
 module.exports={generate,scenarios};
+if(require.main===module)fs.writeFileSync(path.join(__dirname,'fixtures/legacy-schema1.json'),JSON.stringify(require('./fixtures/synthetic/reliability.cjs').schema1(),null,2)+'\n');

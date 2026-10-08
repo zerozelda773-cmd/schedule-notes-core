@@ -1,6 +1,6 @@
 {
   "name": "schedule-notes-core",
-  "version": "0.2.0-candidate.1",
+  "version": "0.3.0-candidate.1",
   "private": true,
   "license": "Apache-2.0",
   "description": "Independent offline synthetic schedule and activity Web Core",
@@ -14,8 +14,15 @@
     "start": "node scripts/start.cjs",
     "check": "python tools/check.py",
     "provenance": "node scripts/provenance.cjs",
-    "test:contracts": "node --test --test-isolation=none tests/contracts.test.cjs",
-    "test:import": "node --test --test-isolation=none tests/import.test.cjs"
+    "test:contracts": "npm run test:contract",
+    "test:import": "node --test --test-isolation=none tests/import.test.cjs tests/multi-import.test.cjs",
+    "test:unit": "node --test --test-isolation=none tests/unit.test.cjs tests/core.test.cjs tests/scanner.test.cjs",
+    "test:contract": "node --test --test-isolation=none tests/contracts.test.cjs tests/api-contract.test.cjs tests/output.test.cjs",
+    "test:storage": "node --test --test-isolation=none tests/storage.test.cjs",
+    "test:migration": "node --test --test-isolation=none tests/migration.test.cjs tests/snapshot-migration.test.cjs",
+    "test:recovery": "node --test --test-isolation=none tests/recovery.test.cjs",
+    "test:integration": "node --test --test-isolation=none tests/integration.test.cjs",
+    "test:browser": "node scripts/browser-test.cjs"
   },
   "repository": {
     "type": "git",

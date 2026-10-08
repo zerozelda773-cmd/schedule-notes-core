@@ -1,45 +1,43 @@
 # Schedule Notes Core
 
-An independent, zero-dependency Web Core for reliable schedule and activity experiments. Main develops a **v0.2.0 candidate**; [v0.1.0](https://github.com/zerozelda773-cmd/schedule-notes-core/tree/v0.1.0) remains the released baseline.
+A zero-dependency public core for explainable data, atomic imports and local persistence. Main is Phase 3 development; [v0.2.0](https://github.com/zerozelda773-cmd/schedule-notes-core/tree/v0.2.0) is the frozen released compatibility baseline (`f0a2256f118b57ed77f95e050437036131dfa8d2`). No v0.3.0 release is implied.
 
-The tree contains original generic code and fixtures generated from scratch. Real business data, attachments, private source and production infrastructure remain excluded.
+## Quick start
 
-## Data truth
-
-Outputs explain source, entity, period, calculation, matching and completeness. Unknown stays unknown: null never becomes zero, names never become IDs, probable never becomes exact, plans never become observations, and period gaps block complete conclusions.
-
-Read the [data contract](docs/DATA-CONTRACT.md), [output contract](docs/OUTPUT-CONTRACT.md), [import contract](docs/IMPORT-CONTRACT.md) and [API surface](docs/API-SURFACE.md). Schema 2 is experimental; the v0.1 demonstration APIs remain separately available.
-
-## Run
-
-Requires Node.js 24+, npm, Python 3.10+. No credentials or packages are needed.
+Requires Node.js 24+, npm and Python 3.10+. Browser tests also require installed Chrome/Chromium (optional `CHROME_BIN`); no packages, credentials or production services are used.
 
 ~~~sh
 npm ci --ignore-scripts --no-audit --no-fund
 npm run generate
-npm run provenance
 npm run build
 npm test
+npm run test:browser
+npm run provenance
 python tools/check.py
+node examples/reliability.cjs
 npm start
 ~~~
 
-Open http://127.0.0.1:4173. The loopback-only one-page demo shows identity candidates, output truth, JSON import preview/commit and activity transitions. All input is fictional. Reload resets the memory store. Editing input invalidates the preview.
+Open http://127.0.0.1:4173. The thin demo persists original synthetic facts in IndexedDB and displays identity, output, import, Activity transactions, snapshots and migration preview. Corrupt data is retained for explicit recovery. Never paste real business inputs or credentials.
 
-## Architecture and fixtures
+## Architecture
 
-Core contains generic contracts, identity, period, validation, analysis, tasks and the API facade. Adapters contain CSV/JSON import, atomic memory storage and optional interfaces. Fixtures, tests and one-page demo stay separate.
+Use `core/index.js` / `ScheduleNotesCore` as the Public API Layer. Core handles contracts and generic transforms through a storage interface. Adapters provide native IndexedDB, memory and CSV/JSON boundaries. Tests, synthetic generators and the demo are separate.
 
-Fixtures cover null, zero, returns, duplicate input, missing identity, unknown product, period gaps, cross-hospital same-named departments, same-named customers, draft/cancelled/completed activities and all four matching qualities. No private distributions or structures are fitted.
+`apiVersion = "1.0"` describes call contracts; `schemaVersion = 2` describes facts. Persistent envelope/database versions are separate. Schema 3 is not invented for this phase. The [API registry](docs/API-SURFACE.md) records stable, experimental, deprecated and internal surfaces.
 
-## Contributing
+## Core principles
 
-See [CONTRIBUTING](CONTRIBUTING.md), [SECURITY](SECURITY.md), [boundary](PUBLIC-BOUNDARY.md), [manifest](PUBLIC-MANIFEST.json), [third-party inventory](THIRD-PARTY.md) and [Apache-2.0](LICENSE).
+Names are not IDs. Departments remain hospital-scoped. Unknown stays null, zero stays zero, plans stay distinct from observation/report periods, and ambiguity never becomes a guessed exact match. Outputs explain source, entity, period, truth, matching, completeness and limitations. Critical multi-record writes are atomic; stale previews and conflicts cannot silently overwrite.
 
-Register reviewed new files explicitly: python tools/update_manifest.py --add path/to/file. The tool refreshes only registered files. Review the diff and run checks before pushing. CI uses read-only permissions, no production credentials and no private repository access.
+**Integrity ≠ authenticity.** Snapshot checksums detect changed or corrupt content; they are not signatures or proof of who created facts. Synthetic/source declarations alone do not prove origin. Browser persistence can be evicted or lost; retain backups.
 
-## Limitations and roadmap
+## Documentation
 
-No Android/native package, cloud sync, production AI, Excel parser, Office template, signing or deployment system is included. Memory storage is neither durable nor multi-process. Source declarations do not prove real-world truth. Generic finite-number sums do not implement monetary accounting rules. Schema 1 needs manual migration; schema 2 has no long-term API guarantee.
+- [API and deprecation](docs/API-SURFACE.md), [compatibility](docs/COMPATIBILITY.md), [data](docs/DATA-CONTRACT.md), [output](docs/OUTPUT-CONTRACT.md)
+- [Storage](docs/STORAGE.md), [migration](docs/MIGRATION.md), [snapshot](docs/SNAPSHOT.md), [recovery](docs/RECOVERY.md)
+- [Frozen single-entity import](docs/IMPORT-CONTRACT.md), [multi-entity import](docs/IMPORT-PHASE3.md)
+- [Tests and CI](docs/TESTING.md), [working example](examples/reliability.cjs)
+- [Contributing](CONTRIBUTING.md), [security](SECURITY.md), [boundary](PUBLIC-BOUNDARY.md), [manifest](PUBLIC-MANIFEST.json), [dependencies](THIRD-PARTY.md), [Apache-2.0](LICENSE)
 
-Next: broader generic mappings and synthetic boundaries, accessible editing, and durable storage through the transaction interface. A v0.2.0 release needs local checks, public CI, clean clone, manifest, secret and license PASS. Candidate development alone does not publish a release.
+Register reviewed files explicitly with `python tools/update_manifest.py --add path/to/file`; refresh hashes only after reviewing changes. The public tree contains from-zero synthetic data and original generic code. Private product source/history, business data, attachments, signing and infrastructure stay excluded. No Android package, cloud sync, production AI, Office template or private schema migration is included.
