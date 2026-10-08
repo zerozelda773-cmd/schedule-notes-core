@@ -21,5 +21,9 @@ test('every Stable API has seven facets and a tested output oracle; promotions r
  const names=[...Object.keys(baseline.contracts),...Object.keys(promoted.contracts)].sort();assert.equal(new Set(names).size,37);assert.deepEqual(api.apiRegistry.filter(x=>x.status==='STABLE').map(x=>x.name).sort(),names);assert.equal(Object.keys(baseline.contracts).length,21);assert.equal(Object.keys(promoted.contracts).length,16);
 });
 test('declaration exports cover the complete actual package facade without widening it to any',()=>{
- const fs=require('node:fs'),path=require('node:path'),declaration=fs.readFileSync(path.join(__dirname,'../types/index.d.ts'),'utf8'),names=[...declaration.matchAll(/^export const (\w+):/gm)].map(match=>match[1]).sort();assert.deepEqual(names,Object.keys(api).sort());assert.ok(!/\bany\b/.test(declaration));
+ const fs=require('node:fs'),path=require('node:path'),declaration=fs.readFileSync(path.join(__dirname,'../types/index.d.ts'),'utf8'),names=[...declaration.matchAll(/^export declare const (\w+):/gm)].map(match=>match[1]).sort();assert.deepEqual(names,Object.keys(api).sort());assert.ok(!/\bany\b/.test(declaration));
+});
+test('the actual original ambient declarations parse without rewriting source text',()=>{
+ const fs=require('node:fs'),path=require('node:path'),{stripTypeScriptTypes}=require('node:module');
+ for(const name of ['index.d.ts','storage-conformance.d.ts']){const declaration=fs.readFileSync(path.join(__dirname,'../types',name),'utf8');assert.doesNotThrow(()=>stripTypeScriptTypes(declaration,{mode:'strip',sourceUrl:name}));}
 });

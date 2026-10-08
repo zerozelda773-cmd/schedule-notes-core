@@ -34,7 +34,8 @@
     "test:browser": "node scripts/browser-test.cjs",
     "test:phase4": "node --test --test-isolation=none tests/client.test.cjs tests/matching.test.cjs tests/storage-compatibility.test.cjs tests/phase4-recovery.test.cjs tests/phase4-compatibility.test.cjs tests/property.test.cjs tests/determinism.test.cjs tests/headless.test.cjs tests/package.test.cjs tests/security.test.cjs",
     "benchmark": "node scripts/benchmark.cjs",
-    "security": "python tools/dangerous.py"
+    "security": "python tools/dangerous.py",
+    "check:types": "node scripts/check-types.cjs"
   },
   "repository": {
     "type": "git",

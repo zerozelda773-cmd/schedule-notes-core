@@ -42,9 +42,7 @@ jobs:
       - name: Frozen API, adapter conformance, property, determinism, headless and package consumer
         run: npm run test:phase4
       - name: Lightweight declaration syntax, no semantic type compiler implied
-        run: |
-          node --experimental-strip-types --check types/index.d.ts
-          node --experimental-strip-types --check types/storage-conformance.d.ts
+        run: npm run check:types
       - name: Real browser persistence, crash, restart and recovery
         run: npm run test:browser
       - name: Minimal public API example
