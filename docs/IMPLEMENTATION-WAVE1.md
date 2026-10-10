@@ -4,6 +4,9 @@ Import `schedule-notes-core/experimental-wave1` explicitly. All 16 functions are
 EXPERIMENTAL. The frozen v0.4.0 root exports, stable contracts, schema 2, storage
 adapters and migration registry are unchanged. This is a local implementation
 wave, not a version candidate or publication.
+The CommonJS entry also has a nonenumerable `default` interop binding to the same
+API object, matching its declaration namespace. This is module metadata, not a
+seventeenth function or a runtime/store. The original root entry is unchanged.
 
 ## Truth and explicit periods
 
