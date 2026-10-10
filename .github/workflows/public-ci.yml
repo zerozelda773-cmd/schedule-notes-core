@@ -41,10 +41,16 @@ jobs:
         run: npm run test:integration
       - name: Frozen API, adapter conformance, property, determinism, headless and package consumer
         run: npm run test:phase4
+      - name: Experimental Wave 1 and immutable baseline guards
+        run: npm run test:wave1
+      - name: Experimental declaration syntax, no semantic type compiler implied
+        run: node scripts/check-types.cjs types/experimental-wave1.d.ts
       - name: Lightweight declaration syntax, no semantic type compiler implied
         run: npm run check:types
       - name: Real browser persistence, crash, restart and recovery
         run: npm run test:browser
+      - name: Real browser Experimental Wave 1 pure contracts
+        run: npm run test:wave1-browser
       - name: Minimal public API example
         run: node examples/reliability.cjs
       - name: Secrets, public manifest, license and syntax

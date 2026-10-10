@@ -10,9 +10,10 @@
   "exports": {
     ".": {"types": "./types/index.d.ts", "import": "./index.mjs", "require": "./core/index.js"},
     "./legacy": "./core/core.js",
+    "./experimental-wave1": {"types": "./types/experimental-wave1.d.ts", "import": "./experimental-wave1.mjs", "require": "./core/wave1.js"},
     "./adapter-test-suite": {"types": "./types/storage-conformance.d.ts", "import": "./storage-conformance.mjs", "require": "./adapters/storage/conformance.js"}
   },
-  "files": ["index.mjs", "storage-conformance.mjs", "core/*.js", "adapters/**/*.js", "types/*.d.ts", "docs/*.md", "LICENSE", "NOTICE", "README.md", "THIRD-PARTY.md", "SECURITY.md"],
+  "files": ["index.mjs", "storage-conformance.mjs", "experimental-wave1.mjs", "core/*.js", "adapters/**/*.js", "types/*.d.ts", "docs/*.md", "LICENSE", "NOTICE", "README.md", "THIRD-PARTY.md", "SECURITY.md"],
   "engines": {
     "node": ">=24"
   },
@@ -33,6 +34,8 @@
     "test:integration": "node --test --test-isolation=none tests/integration.test.cjs",
     "test:browser": "node scripts/browser-test.cjs",
     "test:phase4": "node --test --test-isolation=none tests/client.test.cjs tests/matching.test.cjs tests/storage-compatibility.test.cjs tests/phase4-recovery.test.cjs tests/phase4-compatibility.test.cjs tests/property.test.cjs tests/determinism.test.cjs tests/headless.test.cjs tests/package.test.cjs tests/security.test.cjs",
+    "test:wave1": "node --test --test-isolation=none tests/wave1*.test.cjs",
+    "test:wave1-browser": "node scripts/wave1-browser.cjs",
     "benchmark": "node scripts/benchmark.cjs",
     "security": "python tools/dangerous.py",
     "check:types": "node scripts/check-types.cjs"

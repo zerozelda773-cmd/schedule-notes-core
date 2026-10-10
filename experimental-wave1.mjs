@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: Apache-2.0
+import './index.mjs';
+import './core/wave1-common.js';
+import './core/wave1-truth.js';
+import './core/wave1-identity.js';
+import './core/wave1-lifecycle.js';
+import * as facade from './core/wave1.js';
+const wave1 = facade.default || globalThis.ScheduleNotesWave1;
+export default wave1;
+export const apiRegistry = wave1.apiRegistry;
+export const assessTruth = wave1.assessTruth;
+export const selectPeriods = wave1.selectPeriods;
+export const aggregatePeriods = wave1.aggregatePeriods;
+export const summarizeHospitalSales = wave1.summarizeHospitalSales;
+export const summarizeHospitalProjection = wave1.summarizeHospitalProjection;
+export const candidateEvidence = wave1.candidateEvidence;
+export const confirmIdentity = wave1.confirmIdentity;
+export const validateAliases = wave1.validateAliases;
+export const migrationGuard = wave1.migrationGuard;
+export const planTerminal = wave1.planTerminal;
+export const validateWithdrawState = wave1.validateWithdrawState;
+export const planWithdraw = wave1.planWithdraw;
+export const validateArchiveState = wave1.validateArchiveState;
+export const planArchive = wave1.planArchive;
+export const validateCommandPlan = wave1.validateCommandPlan;
+export const deletePrecheck = wave1.deletePrecheck;
