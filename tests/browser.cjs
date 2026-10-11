@@ -34,7 +34,22 @@ module.exports=async function browserSuite(phase){
   await check('native cleanup rejects a genuinely held connection at a bounded deadline',async()=>{const name='Synthetic cleanup held',store=open(name);await store.read();await store.close();const blocking=await rawDB(name);let failed=false;try{await deleteSyntheticDatabase(name,{timeoutMs:100});}catch(error){failed=error.code==='SYNTHETIC_CLEANUP_TIMEOUT';}finally{blocking.close();}assert(failed,'Held connection was incorrectly accepted');await deleteSyntheticDatabase(name);});
   await check('fresh persistent store validates seed and metadata',async()=>{const store=open('Synthetic browser');assert(equal(await store.read(),fixture),'Seed changed');assert((await store.metadata()).schemaVersion===2,'Metadata missing');await store.close();});
   await check('reopen preserves IDs, null, zero and source provenance',async()=>{const store=open('Synthetic browser',api.emptyDataset());assert(equal(await store.read(),fixture),'Reopen lost data');await store.close();});
-  await check('two windows compete with exactly one CAS winner',async()=>{const a=open('Synthetic browser'),b=open('Synthetic browser');const out=await Promise.all([a.transaction(d=>{d.sales[0].amount=14;}),b.transaction(d=>{d.sales[1].amount=18;})]);assert(out.filter(x=>x.status==='COMMITTED').length===1,'Both writes committed');assert(out.filter(x=>x.status==='STALE_PREVIEW').length===1,'No conflict');await a.close();await b.close();});
+  await check('two windows reading the same revision have exactly one CAS winner',async()=>{
+   const a=open('Synthetic browser'),b=open('Synthetic browser');let arrived=0,release;
+   const barrier=new Promise(resolve=>{release=resolve;}),snapshots=[];
+   try{
+    const before=await a.read();await b.read();
+    const out=await Promise.all([a,b].map((store,i)=>store.transaction(async d=>{
+     snapshots[i]=JSON.stringify(d);d.sales[i].amount=i===0?14:18;
+     if(++arrived===2)release();await barrier;
+    })));
+    assert(snapshots[0]===snapshots[1],'CAS contenders did not read the same revision');
+    assert(out.filter(x=>x.status==='COMMITTED').length===1,'Same-revision writes both committed');
+    assert(out.filter(x=>x.status==='STALE_PREVIEW').length===1,'Same-revision conflict missing');
+    const after=await a.read(),winner=out[0].status==='COMMITTED'?0:1;
+    assert(winner===0?after.sales[0].amount===14&&after.sales[1].amount===before.sales[1].amount:after.sales[1].amount===18&&after.sales[0].amount===before.sales[0].amount,'CAS loser partially persisted');
+   }finally{await a.close();await b.close();}
+  });
   await check('thrown multi-write transaction rolls back before commit',async()=>{const store=open('Synthetic browser'),before=await store.read(),out=await store.transaction(d=>{d.sales[0].amount=21;d.tasks[0].status='done';throw Error('Synthetic crash');});assert(out.status==='TRANSACTION_FAILED','Failure reported success');assert(equal(await store.read(),before),'Partial write');await store.close();});
   await check('native aborted IndexedDB write never changes persistent bytes',async()=>{const store=open('Synthetic browser'),before=await store.read();await rawWrite('Synthetic browser',value=>{value.records.sales[0].amount=23;return value;},true);assert(equal(await store.read(),before),'Aborted write persisted');await store.close();});
   await check('partial invalid draft and future schema cannot persist',async()=>{const store=open('Synthetic browser'),before=await store.read();for(const mutate of [d=>{delete d.sales[0].amount;},d=>{d.tasks[0].status='unexpected';},d=>{d.schemaVersion=3;}])assert((await store.transaction(mutate)).status==='INVALID_INPUT','Invalid persisted');assert(equal(await store.read(),before),'Data replaced');await store.close();});

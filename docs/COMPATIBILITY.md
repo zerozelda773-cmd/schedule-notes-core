@@ -5,9 +5,10 @@ Phase 4 reference: frozen v0.3.0, `31d6f4b7ef2101f8b377c0e02d6b05be22726f2a`. Th
 | Runtime | Classification | Evidence and limits |
 |---|---|---|
 | Node 24.19.0 | SUPPORTED for tested headless/package contracts | Actual local Node suites, ESM consumer, deterministic/property and synthetic benchmarks. Other Node majors have not been verified. |
-| Chrome/Chromium 154 | SUPPORTED for tested browser contracts | Real IndexedDB, transaction abort, fresh profile, process restart and local synthetic browser checks. The browser executable is external and not version-locked by this package. Current candidate verification must record its exact version and result. |
+| Chrome/Chromium 155 (closure run; original baseline 154) | SUPPORTED for tested browser contracts | Real IndexedDB, transaction abort, fresh profile, process restart and local synthetic browser checks. The browser executable is external and not version-locked by this package. Current candidate verification must record its exact version and result. |
 | Android WebView compatible runtime | BEST EFFORT, contract-only | Android adapter interface is defined; no real WebView/Android runtime or private Android implementation is supplied or tested. Runtime needs modern JavaScript, structuredClone, Web Crypto and compatible storage. |
-| Firefox / WebKit / Safari | UNSUPPORTED by the verified matrix; NOT TESTED | No second-engine runtime was available. No claim that every browser is compatible. |
+| Firefox 157 / Gecko | VERIFIED for the recorded synthetic contracts | Same-revision CAS, ordered valid commits, persistence, abort, migration, recovery, crash/restart and Experimental Wave 1 exercised using a fresh profile. The original CAS assertion lacked a shared-revision barrier; see [limitations](RELEASE-LIMITATIONS.md). This is a scoped verification, not universal browser certification. |
+| WebKit / Safari | NOT VERIFIED | No corresponding engine run; no compatibility claim. |
 | Older Node / Chromium | UNSUPPORTED by the verified matrix; NOT TESTED | Supported minimums have not been inferred from syntax alone. |
 
 `SUPPORTED` refers only to the covered operations and recorded runs. It is not a guarantee against quota eviction, process/hardware failure or unknown host behavior. The compatibility matrix is separate from current CI status; a missing/unrun candidate CI cannot be called PASS.
@@ -28,3 +29,5 @@ No breaking change to the original Stable API is authorized or intentionally int
 The original tests continue alongside Phase 3 and Phase 4 contract/storage/migration/import/recovery/integration, property, determinism, headless and real browser checks. Memory adapters can report EPHEMERAL compatibility; a persistent adapter needs real reopen and corruption evidence through the shared adapter suite before claiming RESTARTABLE compatibility. A report with NOT_APPLICABLE checks must retain those limits.
 
 The first historical browser failure remains UNKNOWN. A successful current run is NOT REPRODUCED with ROOT CAUSE UNKNOWN, not a proven fix.
+
+Restore performance debt of approximately +57.9% is retained as an inherited review input, not remeasured or hidden by a fresh timing sample. The original baseline/hardware/runtime evidence and a follow-up owner must accompany a release disclosure. See [release limitations](RELEASE-LIMITATIONS.md).
