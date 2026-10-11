@@ -51,6 +51,10 @@ jobs:
         run: npm run test:browser
       - name: Real browser Experimental Wave 1 pure contracts
         run: npm run test:wave1-browser
+      - name: Chromium same-revision CAS and durable browser matrix
+        run: node scripts/browser-matrix.cjs chromium
+      - name: Firefox same-revision CAS and durable browser matrix
+        run: node scripts/browser-matrix.cjs firefox
       - name: Minimal public API example
         run: node examples/reliability.cjs
       - name: Secrets, public manifest, license and syntax
