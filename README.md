@@ -1,6 +1,6 @@
 # Schedule Notes Core
 
-Zero-dependency public data Core: stable identities, explainable facts, atomic import and local storage. Main develops Phase 4; [v0.3.0](https://github.com/zerozelda773-cmd/schedule-notes-core/tree/v0.3.0) is the frozen compatibility baseline. No v0.4.0 release or npm publication is implied.
+Zero-dependency public data Core: stable identities, explainable facts, atomic import and local storage. [v0.4.0](https://github.com/zerozelda773-cmd/schedule-notes-core/tree/v0.4.0) is the frozen published compatibility baseline. Main includes a separately imported Experimental Wave 1 pure-contract delta; no next-version release or npm publication is implied.
 
 ## Consume the Core
 
@@ -39,3 +39,7 @@ The existing thin synthetic demo is at http://127.0.0.1:4173. Core business logi
 - [Contributing](CONTRIBUTING.md), [security](SECURITY.md), [boundary](PUBLIC-BOUNDARY.md), [manifest](PUBLIC-MANIFEST.json), [dependencies](THIRD-PARTY.md), [license](LICENSE)
 
 Sources and fixtures are independently authored/from-zero synthetic. Private product source/history, real business data, production configurations, signing material and internal evidence are excluded. Android/SQLite/AI contracts do not include private implementations or network providers. npm publishing, tags and releases require a separate explicit Gate.
+
+## Experimental Wave 1 and release limitations
+
+The root retains 37 Stable APIs, 22 existing Experimental registry entries and 6 Deprecated entries. The separate `schedule-notes-core/experimental-wave1` subpath adds 16 Experimental pure functions; none is promoted to Stable. Schema 2 remains unchanged. See [Wave 1](docs/IMPLEMENTATION-WAVE1.md) and [release limitations](docs/RELEASE-LIMITATIONS.md).

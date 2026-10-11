@@ -2,8 +2,8 @@
 
 Import `schedule-notes-core/experimental-wave1` explicitly. All 16 functions are
 EXPERIMENTAL. The frozen v0.4.0 root exports, stable contracts, schema 2, storage
-adapters and migration registry are unchanged. This is a local implementation
-wave, not a version candidate or publication.
+adapters and migration registry are unchanged. This Wave 1 delta is landed on main; landing and successful CI do not authorize
+a new version candidate or publication.
 The CommonJS entry also has a nonenumerable `default` interop binding to the same
 API object, matching its declaration namespace. This is module metadata, not a
 seventeenth function or a runtime/store. The original root entry is unchanged.
@@ -84,12 +84,13 @@ external association absence and never deletes anything.
 `migrationGuard` refuses future schemas and extensions to the closed schema 2.
 Version 1 still requires the existing explicit migration process. No migration,
 snapshot extension, durable metadata or API promotion occurs in this wave.
-Frozen module/type/oracle hashes and existing complete compatibility tests protect
+Frozen module/type/oracle hashes (with the explicitly reviewed same-revision browser CAS test correction) and existing complete compatibility tests protect
 the v0.4.0 root behavior. New fixtures are independently invented synthetic values.
 
 New metadata persistence, manual Activity/Task cascade, optional identity
 relationships, implicit months, coverage/override policy, retroactive stable API
 changes and schema 2 relaxation remain HOLD. No private data, mapping, template,
 history, production dependency, Android bridge, signing or updater is included.
-Independent public CI and anonymous clean-clone gates are required in a later
-authorized phase; local tests do not establish those gates or authorize a release.
+Public post-merge CI and anonymous clean-consumer checks are recorded separately
+in release readiness. They do not authorize a release. See
+[release limitations](RELEASE-LIMITATIONS.md) for retained HOLDs and open debt.
